@@ -29,8 +29,11 @@ EXPORT_DIR.mkdir(parents=True, exist_ok=True)
 
 SESSION_COOKIE = "legifoot_session"
 SESSION_MAX_AGE = 60 * 60 * 24 * 14
+ENVIRONMENT = os.getenv("LEGIFOOT_ENV", "development").lower()
 SESSION_SECRET_KEY = os.getenv("LEGIFOOT_SECRET_KEY", "legifoot-dev-secret-change-me")
-SESSION_HTTPS_ONLY = os.getenv("LEGIFOOT_HTTPS_ONLY", "0") == "1"
+SESSION_HTTPS_ONLY = os.getenv("LEGIFOOT_HTTPS_ONLY", "0") == "1" or ENVIRONMENT == "production"
+MAX_UPLOAD_SIZE_MB = int(os.getenv("LEGIFOOT_MAX_UPLOAD_MB", "20"))
+MAX_UPLOAD_BYTES = MAX_UPLOAD_SIZE_MB * 1024 * 1024
 
 
 def _b64encode(data: bytes) -> str:
@@ -77,11 +80,11 @@ async def signed_cookie_session(request: Request, call_next: Any) -> Response:
             _dump_session(request.scope["session"]),
             max_age=SESSION_MAX_AGE,
             httponly=True,
-            samesite="lax",
+            samesite="strict" if ENVIRONMENT == "production" else "lax",
             secure=SESSION_HTTPS_ONLY,
         )
     else:
-        response.delete_cookie(SESSION_COOKIE, samesite="lax", secure=SESSION_HTTPS_ONLY)
+        response.delete_cookie(SESSION_COOKIE, samesite="strict" if ENVIRONMENT == "production" else "lax", secure=SESSION_HTTPS_ONLY)
     return response
 
 
@@ -90,6 +93,12 @@ templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 ALLOWED_SUFFIXES = {".pdf", ".docx", ".xlsx", ".xlsm", ".xls", ".csv"}
 ADMIN_PASSWORD = os.getenv("LEGIFOOT_ADMIN_PASSWORD", "admin123")
+
+if ENVIRONMENT == "production":
+    if SESSION_SECRET_KEY == "legifoot-dev-secret-change-me":
+        raise RuntimeError("LEGIFOOT_SECRET_KEY must be set in production")
+    if ADMIN_PASSWORD == "admin123":
+        raise RuntimeError("LEGIFOOT_ADMIN_PASSWORD must be set in production")
 
 COMPETITIONS = [
     {"value": "Ligue 1 Professionnelle", "label": "Ligue 1", "short": "L1", "description": "Championnat élite tunisien"},
@@ -195,6 +204,13 @@ def event_label(row: dict[str, Any]) -> str:
     if event_type == "substitution":
         return "Remplacement"
     return event_type.capitalize()
+
+
+def csv_safe(value: Any) -> str:
+    text = str(value or "")
+    if text[:1] in {"=", "+", "-", "@"}:
+        return "'" + text
+    return text
 
 
 def pct(value: Any) -> str:
@@ -636,8 +652,17 @@ async def upload_files(
         while target.exists():
             target = UPLOAD_DIR / f"{Path(base_name).stem}_{counter}{suffix}"
             counter += 1
+        written = 0
         with target.open("wb") as f:
-            shutil.copyfileobj(uploaded.file, f)
+            while True:
+                chunk = uploaded.file.read(1024 * 1024)
+                if not chunk:
+                    break
+                written += len(chunk)
+                if written > MAX_UPLOAD_BYTES:
+                    target.unlink(missing_ok=True)
+                    raise HTTPException(status_code=413, detail=f"Fichier trop volumineux (max {MAX_UPLOAD_SIZE_MB} Mo)")
+                f.write(chunk)
         content_hash = sha256_file(target)
         extracted = extract_document(target)
         payload = parse_match_sheet(
