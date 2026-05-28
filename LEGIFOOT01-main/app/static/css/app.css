@@ -1945,3 +1945,40 @@ body.theme-deep-night .broadcast-timeline li a { background: rgba(13,17,23,.68);
   .admin-task-list li { align-items: flex-start; flex-direction: column; }
   .admin-hero-actions .btn { width: 100%; }
 }
+
+/* === Dashboard executive refinement === */
+.page-dashboard .executive-dashboard { gap: 16px; }
+.page-dashboard .executive-hero {
+  grid-column: span 12;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid var(--line);
+}
+.executive-kicker { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); font-weight: 800; }
+.hero-context-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.page-dashboard .executive-match-focus { grid-column: span 7; min-height: 300px; }
+.page-dashboard .kpi-grid { grid-column: span 5; display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+.page-dashboard .kpi-grid .sport-stat-card { grid-column: auto; min-height: 132px; }
+.page-dashboard .executive-discipline { grid-column: span 6; }
+.page-dashboard .executive-quality { grid-column: span 6; }
+.page-dashboard .executive-filters { margin-top: 16px; }
+.page-dashboard .empty-state-premium { min-height: 210px; }
+
+@media (max-width: 1080px) {
+  .page-dashboard .executive-match-focus,
+  .page-dashboard .kpi-grid,
+  .page-dashboard .executive-discipline,
+  .page-dashboard .executive-quality,
+  .page-dashboard .recent-timeline-card { grid-column: 1 / -1; }
+}
+
+@media (max-width: 760px) {
+  .page-dashboard .executive-hero { flex-direction: column; padding: 18px; }
+  .page-dashboard .kpi-grid { grid-template-columns: 1fr; }
+  .page-dashboard .kpi-grid .sport-stat-card strong { font-size: 2rem; }
+  .page-dashboard .match-focus-meta { gap: 8px; }
+  .page-dashboard .dashboard-filter-bottom { padding: 14px; }
+}
