@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% set o = detail.official %}
+{% block title %}{{ o.full_name }} · LEGIFOOT{% endblock %}
+{% block h1 %}{{ o.full_name }}{% endblock %}
+{% block content %}
+<section class="breadcrumbs"><a href="/">Accueil</a><a href="/arbitres">Arbitres</a><span>{{ o.full_name }}</span></section>
+<section class="match-hero card"><div><span class="pill">Fiche arbitre / officiel</span><h2>{{ o.full_name }}</h2><p class="muted">Historique des désignations et discipline associée aux matchs.</p></div></section>
+<section class="grid cards three overview-strip"><article class="card stat mini"><span>Matchs</span><strong>{{ detail.matches|length }}</strong></article><article class="card stat mini yellow"><span>Jaunes</span><strong>{{ detail.matches|sum(attribute='yellow_cards') or 0 }}</strong></article><article class="card stat mini red"><span>Rouges</span><strong>{{ detail.matches|sum(attribute='red_cards') or 0 }}</strong></article></section>
+<section class="card"><div class="section-head"><h2>Matchs officiés</h2></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Rôle</th><th>Match</th><th>Score</th><th>Discipline</th></tr></thead><tbody>{% for m in detail.matches %}<tr><td>{{ m.match_date|dash }}</td><td>{{ m.role|dash }}</td><td><a href="/matches/{{ m.id }}"><strong>{{ m.home_team }}</strong> vs <strong>{{ m.away_team }}</strong></a></td><td><span class="badge dark">{{ m|score }}</span></td><td><span class="badge yellow">{{ m.yellow_cards or 0 }} CJ</span> <span class="badge red">{{ m.red_cards or 0 }} CR</span></td></tr>{% else %}<tr><td colspan="5" class="empty">Aucun match.</td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

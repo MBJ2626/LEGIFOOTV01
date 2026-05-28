@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Upload · LEGIFOOT{% endblock %}
+{% block h1 %}Uploader une feuille de match{% endblock %}
+{% block content %}
+<section class="card upload-steps"><div class="workflow-steps"><span>1 · Upload</span><span>2 · Extraction</span><span>3 · Vérification</span><span>4 · Validation</span><span>5 · Insertion</span></div><p class="muted">Les PDF scannés ou peu lisibles seront conservés et signalés comme nécessitant OCR. Après extraction, LEGIFOOT affiche un score de confiance, les données détectées et les éléments à vérifier.</p></section>
+<section class="grid two upload-grid">
+  <article class="card upload-card">
+    <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+      <div class="form-grid three compact-fields">
+        <label>Compétition
+          <select name="competition">
+            {% for c in competitions %}<option value="{{ c.value }}">{{ c.label }}</option>{% endfor %}
+          </select>
+        </label>
+        <label>Saison<input name="season" placeholder="2025-2026"></label>
+        <label>Journée / tour<input name="round_label" placeholder="J1, 1/16, Finale..."></label>
+      </div>
+      <label class="dropzone" for="files">
+        <input id="files" name="files" type="file" multiple accept=".pdf,.docx,.xlsx,.xlsm,.xls,.csv" required>
+        <span class="drop-icon">↥</span>
+        <strong>Dépose les feuilles ici</strong>
+        <small>PDF, Word DOCX, Excel XLSX/XLSM/XLS ou CSV. Le contexte choisi ci-dessus sera appliqué au brouillon.</small>
+        <em id="file-list">Aucun fichier sélectionné</em>
+      </label>
+      <button class="btn primary wide" type="submit">Analyser et créer un brouillon</button>
+    </form>
+  </article>
+  <article class="card">
+    <h2>Extraction structurée LEGIFOOT</h2>
+    <div class="checklist">
+      <span>Match : compétition, saison, journée/tour, date, heure, stade, score</span>
+      <span>Équipes : domicile, extérieur, titulaires, remplaçants et staff</span>
+      <span>Joueurs : numéro, licence, poste, nationalité, capitaine, gardien</span>
+      <span>Événements : buts, cartons jaunes/rouges, remplacements et minutes</span>
+      <span>Officiels : arbitre central, assistants, 4e arbitre, commissaire</span>
+      <span>Observations : réserves, notes terrain et commentaires libres</span>
+    </div>
+    <div class="notice">
+      <strong>Couverture :</strong> la même logique fonctionne pour Ligue 1, Ligue 2 et Coupe de Tunisie. Pour un PDF scanné, ajoute ensuite un moteur OCR en production.
+    </div>
+  </article>
+</section>
+{% endblock %}

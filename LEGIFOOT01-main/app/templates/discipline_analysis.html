@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Analyse discipline · LEGIFOOT{% endblock %}
+{% block h1 %}Analyse discipline{% endblock %}
+{% block content %}
+<section class="breadcrumbs"><a href="/">Accueil</a><span>Analyse discipline</span></section>
+<section class="card page-intro">
+  <div><span class="pill dark">Analyse métier</span><h2>Comprendre les tendances disciplinaires, pas seulement traiter les alertes.</h2><p class="muted">Cette page sépare l’analyse de la discipline du workflow de traitement des notifications.</p></div>
+  <a class="btn primary" href="/notifications">Traiter les alertes</a>
+</section>
+<section class="card filter-drawer-card">
+  <button class="btn secondary filter-drawer-toggle" type="button" data-filter-toggle>Filtrer l’analyse</button>
+  <form method="get" class="advanced-filters filter-drawer-content">
+    <label>Compétition<select name="competition"><option value="">Toutes</option>{% for c in filter_options.competitions %}<option value="{{ c.value }}" {{ 'selected' if selected_competition == c.value else '' }}>{{ c.label }}</option>{% endfor %}</select></label>
+    <label>Saison<select name="season"><option value="">Toutes</option>{% for s in filter_options.seasons %}<option value="{{ s }}" {{ 'selected' if selected_season == s else '' }}>{{ s }}</option>{% endfor %}</select></label>
+    <label>Club<select name="club"><option value="">Tous</option>{% for club in filter_options.clubs %}<option value="{{ club }}" {{ 'selected' if selected_club == club else '' }}>{{ club }}</option>{% endfor %}</select></label>
+    <button class="btn primary" type="submit">Appliquer</button><a class="btn secondary" href="/discipline">Réinitialiser</a>
+  </form>
+</section>
+<section class="grid three">
+  <article class="card insight"><span>Clubs sanctionnés</span><strong>{{ analysis.cards_by_club|length }}</strong></article>
+  <article class="card insight yellow"><span>Joueurs avertis</span><strong>{{ analysis.players_most_carded|length }}</strong></article>
+  <article class="card insight red"><span>Rouges récents</span><strong>{{ analysis.red_cards|length }}</strong></article>
+</section>
+<section class="grid two">
+  <article class="card"><div class="section-head"><h2>Cartons par club</h2><span class="muted">Top 12</span></div><div class="bars">{% for r in analysis.cards_by_club %}<div class="bar-row"><span>{{ r.club }}</span><div class="bar"><i style="width: {{ [r.total * 10, 100]|min }}%"></i></div><strong>{{ r.total }}</strong></div>{% else %}<p class="empty">Aucun carton trouvé.</p>{% endfor %}</div></article>
+  <article class="card"><div class="section-head"><h2>Joueurs les plus avertis</h2><span class="muted">Jaunes / rouges</span></div><div class="mobile-card-list">{% for r in analysis.players_most_carded %}<article class="mini-row"><strong>{{ r.player }}</strong><span>{{ r.club }}</span><span class="badge yellow">🟨 {{ r.yellow }}</span><span class="badge red">🟥 {{ r.red }}</span></article>{% else %}<p class="empty">Aucun joueur à afficher.</p>{% endfor %}</div></article>
+</section>
+<section class="grid two">
+  <article class="card"><div class="section-head"><h2>Cartons par arbitre</h2><span class="muted">Analyse officiels</span></div><div class="table-wrap"><table><thead><tr><th>Arbitre</th><th>Matchs</th><th>Jaunes</th><th>Rouges</th><th>Total</th></tr></thead><tbody>{% for r in analysis.cards_by_official %}<tr><td>{{ r.official }}</td><td>{{ r.matches }}</td><td>{{ r.yellow or 0 }}</td><td>{{ r.red or 0 }}</td><td><strong>{{ r.total_cards }}</strong></td></tr>{% else %}<tr><td colspan="5" class="empty">Aucune donnée arbitre.</td></tr>{% endfor %}</tbody></table></div></article>
+  <article class="card"><div class="section-head"><h2>Rouges récents</h2><span class="badge red">Critique</span></div><ul class="notes-list">{% for e in analysis.red_cards %}<li><span>{{ e.minute|dash }}{% if e.minute %}'{% endif %} · {{ e.club|dash }}</span><p>{{ e.player|dash }}</p><small>{{ e.detail|dash }}</small></li>{% else %}<li class="empty">Aucun carton rouge dans la vue.</li>{% endfor %}</ul></article>
+</section>
+{% endblock %}

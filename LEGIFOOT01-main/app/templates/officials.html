@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Arbitres · LEGIFOOT{% endblock %}
+{% block h1 %}Arbitres et officiels{% endblock %}
+{% block content %}
+{% set admin = is_admin(request) %}
+<section class="grid cards three overview-strip"><article class="card stat mini"><span>Officiels filtrés</span><strong>{{ officials|length }}</strong></article><article class="card stat mini"><span>Compétition</span><strong>{{ selected_competition or 'Toutes' }}</strong></article><article class="card stat mini"><span>Club</span><strong>{{ selected_club or 'Tous' }}</strong></article></section>
+<section class="card">
+  <div class="section-head"><h2><span class="heading-icon"><svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 4.4 3.1 8.5 8 10 4.9-1.5 8-5.6 8-10V6l-8-4Zm-1 14-4-4 1.4-1.4 2.6 2.6 5.6-5.6L18 9l-7 7Z"/></svg></span>Base officiels</h2>{% if admin %}<a class="btn secondary small" href="/export/officials.csv">Export CSV</a>{% endif %}</div>
+  <form method="get" class="advanced-filters compact-filter-panel">
+  <label>Compétition
+    <select name="competition">
+      <option value="">Toutes les compétitions</option>
+      {% for c in filter_options.competitions %}<option value="{{ c.value }}" {{ 'selected' if selected_competition == c.value else '' }}>{{ c.label }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Saison
+    <select name="season">
+      <option value="">Toutes les saisons</option>
+      {% for s in filter_options.seasons %}<option value="{{ s }}" {{ 'selected' if selected_season == s else '' }}>{{ s }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Club
+    <select name="club">
+      <option value="">Tous les clubs</option>
+      {% for club in filter_options.clubs %}<option value="{{ club }}" {{ 'selected' if selected_club == club else '' }}>{{ club }}</option>{% endfor %}
+    </select>
+  </label>
+  
+  <button class="btn primary" type="submit"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v5l-4 2v-7L3 5Z"/></svg></span>Filtrer</button>
+  <a class="btn secondary" href="/officials">Réinitialiser</a>
+</form>
+  <div class="table-tools"><input class="table-filter" data-table="officials-table" placeholder="Filtrer officiels..."></div>
+  <div class="table-wrap"><table id="officials-table"><thead><tr><th>Nom</th><th>Compétitions</th><th>Matchs</th><th>Cartons jaunes dans ses matchs</th><th>Cartons rouges dans ses matchs</th><th>Créé</th></tr></thead><tbody>
+  {% for o in officials %}<tr><td><a href="/officials/{{ o.id }}"><strong>{{ o.full_name }}</strong></a></td><td>{{ o.competitions|dash }}</td><td>{{ o.matches_count or 0 }}</td><td><span class="badge yellow">{{ o.yellow_cards or 0 }}</span></td><td><span class="badge red">{{ o.red_cards or 0 }}</span></td><td>{{ o.created_at }}</td></tr>{% else %}<tr><td colspan="6" class="empty">Aucun officiel pour ces filtres.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+{% endblock %}

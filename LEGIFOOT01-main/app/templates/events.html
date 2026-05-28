@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Événements · LEGIFOOT{% endblock %}
+{% block h1 %}Buts, cartons et remplacements{% endblock %}
+{% block content %}
+{% set admin = is_admin(request) %}
+<section class="grid cards four overview-strip">
+  <article class="card stat mini"><span>Événements filtrés</span><strong>{{ events|length }}</strong></article>
+  <article class="card stat mini"><span>Type</span><strong>{{ selected_event_type or 'Tous' }}</strong></article>
+  <article class="card stat mini"><span>Compétition</span><strong>{{ selected_competition or 'Toutes' }}</strong></article>
+  <article class="card stat mini"><span>Club</span><strong>{{ selected_club or 'Tous' }}</strong></article>
+</section>
+<section class="card">
+  <div class="section-head"><h2><span class="heading-icon"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 10-13h-7l0-7Z"/></svg></span>Tous les événements</h2>{% if admin %}<a class="btn secondary small" href="/export/events.csv">Export CSV</a>{% endif %}</div>
+  <form method="get" class="advanced-filters compact-filter-panel">
+  <label>Compétition
+    <select name="competition">
+      <option value="">Toutes les compétitions</option>
+      {% for c in filter_options.competitions %}<option value="{{ c.value }}" {{ 'selected' if selected_competition == c.value else '' }}>{{ c.label }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Saison
+    <select name="season">
+      <option value="">Toutes les saisons</option>
+      {% for s in filter_options.seasons %}<option value="{{ s }}" {{ 'selected' if selected_season == s else '' }}>{{ s }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Club
+    <select name="club">
+      <option value="">Tous les clubs</option>
+      {% for club in filter_options.clubs %}<option value="{{ club }}" {{ 'selected' if selected_club == club else '' }}>{{ club }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Type<select name="event_type"><option value="">Tous</option><option value="goal" {{ 'selected' if selected_event_type == 'goal' else '' }}>Buts</option><option value="card" {{ 'selected' if selected_event_type == 'card' else '' }}>Cartons</option><option value="substitution" {{ 'selected' if selected_event_type == 'substitution' else '' }}>Remplacements</option></select></label>
+  <button class="btn primary" type="submit"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v5l-4 2v-7L3 5Z"/></svg></span>Filtrer</button>
+  <a class="btn secondary" href="/events">Réinitialiser</a>
+</form>
+  <div class="table-tools"><input class="table-filter" data-table="events-table" placeholder="Recherche rapide joueur, club, type..."></div>
+  <div class="table-wrap"><table id="events-table"><thead><tr><th>Date</th><th>Compétition</th><th>Match</th><th>Minute</th><th>Type</th><th>Club</th><th>Joueur</th><th>Lié à</th><th>Détail</th></tr></thead><tbody>
+  {% for e in events %}<tr><td>{{ e.match_date|dash }}</td><td><span class="badge outline">{{ e.competition|dash }}</span></td><td><a href="/matches/{{ e.match_id }}">{{ e.home_team|dash }} vs {{ e.away_team|dash }}</a></td><td>{{ e|minute_label }}</td><td><span class="badge {{ e.card_color or e.event_type }}">{{ e|event_label }}</span></td><td>{{ e.club|dash }}</td><td><strong>{{ e.player|dash }}</strong></td><td>{{ e.related_player|dash }}</td><td>{{ e.detail|dash }}</td></tr>{% else %}<tr><td colspan="9" class="empty">Aucun événement pour ces filtres.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+{% endblock %}

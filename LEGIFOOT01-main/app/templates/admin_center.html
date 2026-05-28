@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% block title %}Centre admin · LEGIFOOT{% endblock %}
+{% block h1 %}Centre de contrôle admin{% endblock %}
+
+{% block content %}
+{% set critical_count = todo.critical_notifications|length %}
+{% set docs_count = todo.documents_pending|length %}
+{% set incomplete_count = todo.matches_incomplete|length %}
+{% set watch_count = todo.watch_notifications|length %}
+{% set quality_count = missing.matches_without_referee|length + missing.matches_without_stadium|length + missing.matches_without_score|length + missing.events_without_minute|length %}
+
+<section class="admin-cockpit-hero card">
+  <div class="admin-hero-copy">
+    <span class="pill">Mode administrateur</span>
+    <h2>Pilotez les tâches sans perdre le fil.</h2>
+    <p>Un cockpit organisé par priorité : importer, vérifier, compléter les matchs et traiter les alertes discipline avant publication.</p>
+    <div class="admin-hero-actions">
+      <a class="btn primary" href="/upload">Uploader une feuille</a>
+      <a class="btn secondary" href="/manual">Saisie manuelle</a>
+      <a class="btn secondary" href="/documents">File documents</a>
+    </div>
+  </div>
+  <div class="admin-priority-panel" aria-label="Priorités administrateur">
+    <a class="admin-priority-tile critical" href="/notifications">
+      <span>Urgent discipline</span>
+      <strong>{{ critical_count }}</strong>
+      <small>alerte(s) critiques à valider</small>
+    </a>
+    <a class="admin-priority-tile warning" href="/documents">
+      <span>File de revue</span>
+      <strong>{{ docs_count }}</strong>
+      <small>document(s) en attente</small>
+    </a>
+    <a class="admin-priority-tile info" href="#quality-checklist">
+      <span>Qualité données</span>
+      <strong>{{ quality_count }}</strong>
+      <small>point(s) à sécuriser</small>
+    </a>
+  </div>
+</section>
+
+<section class="admin-workflow-grid" aria-label="Actions principales">
+  <a class="admin-action-card" href="/upload">
+    <span class="admin-action-step">1</span>
+    <div>
+      <strong>Importer</strong>
+      <small>PDF, Excel, Word ou CSV</small>
+    </div>
+  </a>
+  <a class="admin-action-card" href="/documents">
+    <span class="admin-action-step">2</span>
+    <div>
+      <strong>Vérifier</strong>
+      <small>{{ docs_count }} document(s) à revoir</small>
+    </div>
+  </a>
+  <a class="admin-action-card" href="#match-completion">
+    <span class="admin-action-step">3</span>
+    <div>
+      <strong>Compléter</strong>
+      <small>{{ incomplete_count }} match(s) incomplets</small>
+    </div>
+  </a>
+  <a class="admin-action-card" href="/notifications">
+    <span class="admin-action-step">4</span>
+    <div>
+      <strong>Contrôler</strong>
+      <small>{{ critical_count + watch_count }} alerte(s) discipline</small>
+    </div>
+  </a>
+</section>
+
+<section class="admin-kpi-grid" aria-label="Indicateurs admin">
+  <article class="admin-kpi-card danger">
+    <span>Alertes critiques</span>
+    <strong>{{ critical_count }}</strong>
+    <small>Suspensions et rouges à arbitrer</small>
+  </article>
+  <article class="admin-kpi-card warning">
+    <span>Documents à vérifier</span>
+    <strong>{{ docs_count }}</strong>
+    <small>Extractions avant insertion</small>
+  </article>
+  <article class="admin-kpi-card primary">
+    <span>Matchs incomplets</span>
+    <strong>{{ incomplete_count }}</strong>
+    <small>Score, stade, officiels ou contexte</small>
+  </article>
+  <article class="admin-kpi-card success">
+    <span>Base active</span>
+    <strong>{{ stats.matches }}</strong>
+    <small>{{ stats.players }} joueurs · {{ stats.events }} événements</small>
+  </article>
+</section>
+
+<section class="admin-board">
+  <article class="admin-board-column danger">
+    <div class="section-head compact">
+      <div>
+        <span class="admin-column-label">Priorité 1</span>
+        <h2>Alertes critiques</h2>
+      </div>
+      <a href="/notifications">Tout voir</a>
+    </div>
+    <ul class="admin-task-list">
+      {% for n in todo.critical_notifications %}
+      <li>
+        <div>
+          <strong>{{ n.player|dash }}</strong>
+          <small>{{ n.message|dash }}</small>
+        </div>
+        <a class="btn small secondary" href="/notifications">Traiter</a>
+      </li>
+      {% else %}
+      <li class="admin-empty-state">Aucune urgence discipline.</li>
+      {% endfor %}
+    </ul>
+  </article>
+
+  <article class="admin-board-column warning">
+    <div class="section-head compact">
+      <div>
+        <span class="admin-column-label">Priorité 2</span>
+        <h2>Documents à vérifier</h2>
+      </div>
+      <a href="/documents">Tout voir</a>
+    </div>
+    <ul class="admin-task-list">
+      {% for d in todo.documents_pending %}
+      <li>
+        <div>
+          <strong>{{ d.original_filename }}</strong>
+          <small>{{ d.status }} · {{ d.created_at }}</small>
+        </div>
+        <a class="btn small secondary" href="/review/{{ d.id }}">Vérifier</a>
+      </li>
+      {% else %}
+      <li class="admin-empty-state">Aucun document en attente.</li>
+      {% endfor %}
+    </ul>
+  </article>
+
+  <article class="admin-board-column" id="match-completion">
+    <div class="section-head compact">
+      <div>
+        <span class="admin-column-label">Priorité 3</span>
+        <h2>Matchs incomplets</h2>
+      </div>
+      <a href="/matches">Calendrier</a>
+    </div>
+    <ul class="admin-task-list">
+      {% for m in todo.matches_incomplete %}
+      <li>
+        <div>
+          <strong>{{ m.home_team|dash }} vs {{ m.away_team|dash }}</strong>
+          <small>{{ m.match_date|dash }} · {{ m.competition|dash }}</small>
+        </div>
+        <a class="btn small secondary" href="/matches/{{ m.id }}">Compléter</a>
+      </li>
+      {% else %}
+      <li class="admin-empty-state">Aucun match incomplet détecté.</li>
+      {% endfor %}
+    </ul>
+  </article>
+</section>
+
+<section class="admin-lower-grid">
+  <article class="card admin-quality-card" id="quality-checklist">
+    <div class="section-head">
+      <div>
+        <h2>Checklist qualité</h2>
+        <p class="muted">Les points qui bloquent une base propre et exploitable.</p>
+      </div>
+      <span class="badge {{ 'red' if quality_count else 'green' }}">{{ quality_count }} point(s)</span>
+    </div>
+    <div class="data-quality-grid admin-quality-grid">
+      <a class="quality-card" href="/matches"><strong>{{ missing.matches_without_referee|length }}</strong><span>Matchs sans arbitre</span></a>
+      <a class="quality-card" href="/matches"><strong>{{ missing.matches_without_stadium|length }}</strong><span>Matchs sans stade</span></a>
+      <a class="quality-card" href="/matches"><strong>{{ missing.matches_without_score|length }}</strong><span>Matchs sans score</span></a>
+      <a class="quality-card" href="/events"><strong>{{ missing.events_without_minute|length }}</strong><span>Événements sans minute</span></a>
+    </div>
+    <ul class="admin-compact-list">
+      {% for m in missing.matches_incomplete[:5] %}
+      <li>
+        <a href="/matches/{{ m.id }}">
+          <strong>{{ m.home_team|dash }} vs {{ m.away_team|dash }}</strong>
+          <small>Complétude {{ m.completeness.score }}% · {{ m.completeness.missing|join(', ') }}</small>
+        </a>
+      </li>
+      {% else %}
+      <li class="admin-empty-state">Aucune donnée critique manquante.</li>
+      {% endfor %}
+    </ul>
+  </article>
+
+  <article class="card admin-tools-card">
+    <div class="section-head">
+      <div>
+        <h2>Outils rapides</h2>
+        <p class="muted">Accès direct aux tâches fréquentes.</p>
+      </div>
+    </div>
+    <div class="admin-tools-grid">
+      <a class="admin-tool-link" href="/export/risk-players.csv"><strong>Export risques</strong><small>Joueurs à surveiller</small></a>
+      <a class="admin-tool-link" href="/search"><strong>Recherche globale</strong><small>Joueur, club, match</small></a>
+      <a class="admin-tool-link" href="/discipline"><strong>Analyse discipline</strong><small>Cartons par club</small></a>
+      <a class="admin-tool-link" href="/export/matches.csv"><strong>Export matchs</strong><small>Calendrier complet</small></a>
+    </div>
+  </article>
+</section>
+
+<section class="card admin-activity-section">
+  <div class="section-head">
+    <div>
+      <h2>Activité récente</h2>
+      <p class="muted">Derniers matchs, documents et alertes pour reprendre rapidement le travail.</p>
+    </div>
+    <a href="/search">Explorer</a>
+  </div>
+  <ul class="admin-activity-list">
+    {% for a in activity %}
+    <li>
+      <span class="admin-activity-dot"></span>
+      <a href="{{ a.url }}">
+        <strong>{{ a.label }}</strong>
+        <small>{{ a.type }} · {{ a.meta|dash }}</small>
+      </a>
+    </li>
+    {% else %}
+    <li class="admin-empty-state">Aucune activité.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

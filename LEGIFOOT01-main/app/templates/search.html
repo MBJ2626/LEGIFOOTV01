@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Recherche · LEGIFOOT{% endblock %}
+{% block h1 %}Recherche globale{% endblock %}
+{% block content %}
+<section class="card">
+  <form action="/search" method="get" class="search-hero">
+    <input name="q" value="{{ q }}" placeholder="Chercher un joueur, club, match, arbitre, stade, document...">
+    <button class="btn primary" type="submit">Rechercher</button>
+  </form>
+  <div class="search-suggestions">{% for s in suggestions %}<a href="/search?q={{ s }}">{{ s }}</a>{% endfor %}</div>
+  {% if q %}<div class="active-filters"><span class="filter-chip">Recherche : {{ q }} <a href="/search">×</a></span></div>{% endif %}
+</section>
+<section class="grid two">
+{% for label, key, url in [('Matchs','matches','/matches/'),('Joueurs','players','/players/'),('Clubs','clubs','/clubs/'),('Arbitres','officials','/officials/')] %}
+  <article class="card"><div class="section-head"><h2>{{ label }}</h2><span class="badge outline">{{ results[key]|length }}</span></div><ul class="result-list">{% for r in results[key] %}
+    <li><a href="{{ url }}{{ r.id }}"><strong>{{ r.full_name or r.name or (r.home_team ~ ' vs ' ~ r.away_team) }}</strong><small>{{ r.competition or r.license_number or r.stadium or '' }}</small></a></li>
+    {% else %}<li class="empty">Aucun résultat.</li>{% endfor %}</ul></article>
+{% endfor %}
+</section>
+<section class="grid two">
+  <article class="card"><div class="section-head"><h2>Événements</h2><span class="badge outline">{{ results.events|length }}</span></div><ul class="result-list">{% for e in results.events %}<li><a href="/matches/{{ e.match_id }}"><strong>{{ e.event_type|dash }} {{ e.card_color|dash }}</strong><small>{{ e.player|dash }} · {{ e.club|dash }}</small></a></li>{% else %}<li class="empty">Aucun événement.</li>{% endfor %}</ul></article>
+  <article class="card"><div class="section-head"><h2>Documents</h2><span class="badge outline">{{ results.documents|length }}</span></div><ul class="result-list">{% for d in results.documents %}<li>{% if is_admin(request) %}<a href="/review/{{ d.id }}">{% endif %}<strong>{{ d.original_filename }}</strong><small>{{ d.status }} · {{ d.created_at }}</small>{% if is_admin(request) %}</a>{% endif %}</li>{% else %}<li class="empty">Aucun document.</li>{% endfor %}</ul></article>
+</section>
+{% endblock %}

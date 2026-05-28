@@ -1,0 +1,27 @@
+<article class="notification-card {{ n.severity }} status-{{ n.status or 'new' }}" data-alert-card data-alert-severity="{{ n.severity }}">
+  <div class="notification-head">
+    {% if is_admin(request) %}
+    <label class="notification-select" title="Sélectionner pour traitement groupé">
+      <input type="checkbox" name="keys" value="{{ n.key }}" form="notification-bulk-form" data-alert-checkbox>
+      <span>Sélection</span>
+    </label>
+    {% endif %}
+    <span class="badge {{ 'red' if n.severity == 'critical' else 'yellow' }}">{{ n.kind|dash }}</span>
+    <span class="badge {{ (n.status or 'new')|replace('treated','green')|replace('ignored','muted')|replace('review','yellow') }}">{{ n.status|default('new')|replace('new','Nouvelle')|replace('review','À vérifier')|replace('treated','Traitée')|replace('ignored','Ignorée') }}</span>
+  </div>
+  <h3>{{ n.player|dash }}</h3>
+  <p>{{ n.message|dash }}</p>
+  <small>{{ n.club|dash }} · Match #{{ n.match_id|dash }}</small>
+  {% if n.admin_comment %}<div class="admin-comment">{{ n.admin_comment }}</div>{% endif %}
+  {% if is_admin(request) %}
+  <details class="notification-single-action">
+    <summary>Action individuelle</summary>
+    <form method="post" action="/notifications/state" class="notification-actions">
+      <input type="hidden" name="key" value="{{ n.key }}">
+      <select name="status"><option value="new" {{ 'selected' if n.status == 'new' else '' }}>Nouvelle</option><option value="review" {{ 'selected' if n.status == 'review' else '' }}>À vérifier</option><option value="treated" {{ 'selected' if n.status == 'treated' else '' }}>Traitée</option><option value="ignored" {{ 'selected' if n.status == 'ignored' else '' }}>Ignorée</option></select>
+      <input name="comment" placeholder="Commentaire admin" value="{{ n.admin_comment or '' }}">
+      <button class="btn primary small" type="submit">Mettre à jour</button>
+    </form>
+  </details>
+  {% endif %}
+</article>

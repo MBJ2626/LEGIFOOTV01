@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Compétitions · LEGIFOOT{% endblock %}
+{% block h1 %}Compétitions tunisiennes{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="section-head">
+    <h2>Périmètre LEGIFOOT</h2>
+    <span class="badge red">Ligue 1 · Ligue 2 · Coupe de Tunisie</span>
+  </div>
+  <p class="muted">Chaque compétition utilise les mêmes modules : upload de feuilles de match, saisie manuelle, validation, base de données, joueurs, officiels, discipline, notifications et exports.</p>
+</section>
+
+<section class="grid three">
+  {% for c in competition_cards %}
+  <article class="card competition-card">
+    <div class="comp-icon">{{ c.short }}</div>
+    <div>
+      <h2>{{ c.label }}</h2>
+      <p>{{ c.description }}</p>
+    </div>
+    <dl class="comp-stats">
+      <div><dt>Matchs</dt><dd>{{ c.matches or 0 }}</dd></div>
+      <div><dt>Joueurs</dt><dd>{{ c.players or 0 }}</dd></div>
+      <div><dt>Buts</dt><dd>{{ c.goals or 0 }}</dd></div>
+      <div><dt>Jaunes</dt><dd>{{ c.yellow_cards or 0 }}</dd></div>
+      <div><dt>Rouges</dt><dd>{{ c.red_cards or 0 }}</dd></div>
+    </dl>
+    <div class="form-actions spread">
+      <a class="btn secondary" href="/matches?competition={{ c.value }}">Voir matchs</a>
+      {% if is_admin(request) %}<a class="btn primary" href="/upload">Uploader</a>{% else %}<a class="btn secondary" href="/login?next=/upload">Connexion admin</a>{% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+{% if extra_competitions %}
+<section class="card">
+  <div class="section-head"><h2>Autres libellés détectés</h2><span class="muted">À normaliser si besoin</span></div>
+  <div class="table-wrap">
+    <table><thead><tr><th>Compétition</th><th>Matchs</th><th>Joueurs</th><th>Cartons</th></tr></thead><tbody>
+      {% for c in extra_competitions %}
+      <tr><td>{{ c.competition }}</td><td>{{ c.matches or 0 }}</td><td>{{ c.players or 0 }}</td><td>{{ (c.yellow_cards or 0) + (c.red_cards or 0) }}</td></tr>
+      {% endfor %}
+    </tbody></table>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

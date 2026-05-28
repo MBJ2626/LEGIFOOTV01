@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Aide · LEGIFOOT{% endblock %}
+{% block h1 %}Aide et méthodologie{% endblock %}
+{% block content %}
+<section class="card"><h2>Comment LEGIFOOT analyse les feuilles</h2><div class="workflow-steps"><span>1 · Import</span><span>2 · Extraction</span><span>3 · Vérification</span><span>4 · Validation</span><span>5 · Publication</span></div><p class="muted">Les PDF, Word, Excel et CSV sont transformés en données structurées puis validés avant exploitation.</p></section>
+<section class="grid two"><article class="card"><h2>Notifications disciplinaires</h2><p>Le moteur signale les cartons rouges, les joueurs qui atteignent 3 cartons jaunes et ceux à surveiller à 2 cartons jaunes selon la période choisie.</p></article><article class="card"><h2>Limites OCR</h2><p>Les PDF scannés peuvent nécessiter un moteur OCR dédié. Le site conserve la source et signale les champs incertains.</p></article></section>
+{% endblock %}

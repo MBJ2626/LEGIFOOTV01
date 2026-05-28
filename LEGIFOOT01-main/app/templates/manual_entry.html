@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Saisie manuelle · LEGIFOOT{% endblock %}
+{% block h1 %}Saisie manuelle d'une feuille de match{% endblock %}
+{% block content %}
+<section class="card manual-intro">
+  <div class="section-head">
+    <h2>Créer un match sans uploader de fichier</h2>
+    <span class="badge blue">L1 · L2 · Coupe</span>
+  </div>
+  <p class="muted">Renseigne les informations du match, les joueurs, arbitres, cartons, buts, remplacements et observations. Le formulaire insère ensuite les données directement dans la base SQLite.</p>
+  <div class="notice info manual-ui-note"><strong>Saisie assistée :</strong> utilise les boutons “Ajouter une ligne exemple” sous chaque zone pour construire les listes plus vite.<br><strong>Format rapide des listes :</strong> une ligne par élément. Utilise le séparateur <code>;</code>. Les champs non connus peuvent rester vides.</div>
+</section>
+
+<form method="post" action="/manual" class="manual-form">
+  <section class="card">
+    <h2>1. Informations du match</h2>
+    <div class="form-grid four">
+      <label>Compétition<select name="competition">{% for c in competitions %}<option value="{{ c.value }}">{{ c.label }}</option>{% endfor %}</select></label>
+      <label>Saison<input name="season" placeholder="2025-2026"></label>
+      <label>Journée<input name="round_label" placeholder="J1, 1ère journée..."></label>
+      <label>Statut<select name="status"><option value="draft">Brouillon</option><option value="verified">Validé</option><option value="published">Publié</option><option value="played">Joué</option><option value="scheduled">Programmé</option><option value="postponed">Reporté</option><option value="archived">Archivé</option></select></label>
+      <label>Date<input type="date" name="match_date"></label>
+      <label>Heure<input type="time" name="match_time"></label>
+      <label>Stade<input name="stadium" placeholder="Stade..."></label>
+      <label>Ville<input name="city" placeholder="Ville"></label>
+      <label>Équipe domicile<input name="home_team" required placeholder="Club domicile"></label>
+      <label>Équipe extérieure<input name="away_team" required placeholder="Club extérieur"></label>
+      <label>Score domicile<input type="number" name="score_home" min="0"></label>
+      <label>Score extérieur<input type="number" name="score_away" min="0"></label>
+      <label>Mi-temps domicile<input type="number" name="halftime_home" min="0"></label>
+      <label>Mi-temps extérieur<input type="number" name="halftime_away" min="0"></label>
+    </div>
+  </section>
+
+  <section class="grid two-cols">
+    <article class="card">
+      <h2>2. Joueurs domicile</h2>
+      <p class="hint">Format : <code>numéro; nom; licence; rôle; capitaine; gardien; poste; nationalité; notes</code></p>
+      <textarea name="home_players" rows="12" placeholder="1; JOUEUR NOM; 990101001; titulaire; oui; oui; Gardien; TN;\n10; JOUEUR NOM; 990101002; remplaçant;;;;;"></textarea>
+      <h3>Staff domicile</h3>
+      <p class="hint">Format : <code>nom; rôle</code></p>
+      <textarea name="home_staff" rows="5" placeholder="ENTRAINEUR NOM; Entraîneur\nADJOINT NOM; Adjoint"></textarea>
+    </article>
+    <article class="card">
+      <h2>3. Joueurs extérieur</h2>
+      <p class="hint">Format : <code>numéro; nom; licence; rôle; capitaine; gardien; poste; nationalité; notes</code></p>
+      <textarea name="away_players" rows="12" placeholder="1; JOUEUR NOM; 990101010; titulaire; oui; oui; Gardien; TN;\n9; JOUEUR NOM; 990101011; remplaçant;;;;;"></textarea>
+      <h3>Staff extérieur</h3>
+      <p class="hint">Format : <code>nom; rôle</code></p>
+      <textarea name="away_staff" rows="5" placeholder="ENTRAINEUR NOM; Entraîneur\nADJOINT NOM; Adjoint"></textarea>
+    </article>
+  </section>
+
+  <section class="card">
+    <h2>4. Officiels du match</h2>
+    <p class="hint">Format : <code>rôle; nom</code></p>
+    <textarea name="officials" rows="6" placeholder="ARBITRE; NOM ARBITRE\n1ER_ASSISTANT; NOM ASSISTANT\n2EME_ASSISTANT; NOM ASSISTANT\n4eme_ARBITRE; NOM ARBITRE\nCOMMISSAIRE; NOM COMMISSAIRE"></textarea>
+  </section>
+
+  <section class="grid three-cols">
+    <article class="card">
+      <h2>5. Buts</h2>
+      <p class="hint">Format : <code>minute; équipe; joueur; détail</code></p>
+      <textarea name="goals" rows="8" placeholder="34; home; JOUEUR NOM; penalty\n70; away; JOUEUR NOM;"></textarea>
+    </article>
+    <article class="card">
+      <h2>6. Cartons</h2>
+      <p class="hint">Format : <code>minute; équipe; joueur; couleur; motif</code>. Couleur : jaune ou rouge.</p>
+      <textarea name="cards" rows="8" placeholder="58; home; JOUEUR NOM; jaune; contestation\n82; away; JOUEUR NOM; rouge; faute grossière"></textarea>
+    </article>
+    <article class="card">
+      <h2>7. Remplacements</h2>
+      <p class="hint">Format : <code>minute; équipe; joueur entrant; joueur sortant; détail</code></p>
+      <textarea name="substitutions" rows="8" placeholder="65; home; JOUEUR ENTRANT; JOUEUR SORTANT;\n75; away; JOUEUR ENTRANT; JOUEUR SORTANT;"></textarea>
+    </article>
+  </section>
+
+  <section class="card">
+    <h2>8. Observations et notes</h2>
+    <p class="hint">Format : <code>minute; auteur; niveau; note</code>. Niveau : note, warning, critical.</p>
+    <textarea name="observations" rows="6" placeholder="90; Délégué; note; Match terminé sans incident\n; Analyste; warning; Vérifier licence du joueur X"></textarea>
+    <div class="form-actions sticky-actions">
+      <button class="btn secondary" type="reset">Réinitialiser</button>
+      <button class="btn primary" type="submit">Insérer le match dans la base</button>
+    </div>
+  </section>
+</form>
+{% endblock %}

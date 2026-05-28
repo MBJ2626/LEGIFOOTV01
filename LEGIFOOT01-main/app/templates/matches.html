@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Matchs · LEGIFOOT{% endblock %}
+{% block h1 %}Matchs{% endblock %}
+{% block content %}
+<section class="breadcrumbs"><a href="/">Accueil</a><span>Matchs</span></section>
+<section class="grid cards three overview-strip">
+  <article class="card stat mini"><span>Matchs filtrés</span><strong>{{ matches|length }}</strong></article>
+  <article class="card stat mini"><span>Compétition</span><strong>{{ selected_competition or 'Toutes' }}</strong></article>
+  <article class="card stat mini"><span>Club</span><strong>{{ selected_club or 'Tous' }}</strong></article>
+</section>
+<section class="card filter-drawer-card">
+  <div class="section-head"><div><h2>Calendrier et résultats</h2><p class="muted">Vue cartes pour consultation, tableau pour analyse et export.</p></div>{% if is_admin(request) %}<a class="btn secondary small" href="/export/matches.csv">Export CSV</a>{% else %}<span class="badge visitor">Consultation</span>{% endif %}</div>
+  <button class="btn secondary filter-drawer-toggle" type="button" data-filter-toggle>Afficher les filtres</button>
+  <form method="get" class="advanced-filters matches-filters filter-drawer-content">
+    <label>Compétition<select name="competition"><option value="">Toutes les compétitions</option>{% for c in filter_options.competitions %}<option value="{{ c.value }}" {{ 'selected' if selected_competition == c.value else '' }}>{{ c.label }}</option>{% endfor %}</select></label>
+    <label>Saison<select name="season"><option value="">Toutes les saisons</option>{% for s in filter_options.seasons %}<option value="{{ s }}" {{ 'selected' if selected_season == s else '' }}>{{ s }}</option>{% endfor %}</select></label>
+    <label>Club<select name="club"><option value="">Tous les clubs</option>{% for club in filter_options.clubs %}<option value="{{ club }}" {{ 'selected' if selected_club == club else '' }}>{{ club }}</option>{% endfor %}</select></label>
+    <label>Du <input type="date" name="date_from" value="{{ date_from }}"></label><label>Au <input type="date" name="date_to" value="{{ date_to }}"></label><label>Journée / tour <input name="round_label" value="{{ selected_round }}" placeholder="J1, finale..."></label><label>Recherche <input name="q" value="{{ q }}" placeholder="Club, stade..."></label>
+    <button class="btn primary" type="submit">Filtrer</button><a class="btn secondary" href="/matches">Réinitialiser</a>
+  </form>
+  <div class="active-filters">{% for label, value in [('Compétition', selected_competition), ('Saison', selected_season), ('Club', selected_club), ('Du', date_from), ('Au', date_to), ('Journée', selected_round), ('Recherche', q)] %}{% if value %}<span class="filter-chip">{{ label }} : {{ value }} <a href="/matches">×</a></span>{% endif %}{% endfor %}</div>
+</section>
+<section id="matches-view" class="card view-panel" data-view-panel data-view="cards">
+  <div class="view-tools"><button class="btn secondary small" type="button" data-view-btn data-target="#matches-view" data-view="cards">Vue cartes</button><button class="btn secondary small" type="button" data-view-btn data-target="#matches-view" data-view="table">Vue tableau</button></div>
+  <div class="cards-view">{% for m in matches %}{% set c = completeness(m.id) %}<a class="data-card" href="/matches/{{ m.id }}"><span class="badge outline">{{ m.competition|dash }} · {{ m.round_label|dash }}</span><strong>{{ m.home_team|dash }} <span class="score-title">{{ m|score }}</span> {{ m.away_team|dash }}</strong><div class="data-card-meta"><span>{{ m.match_date|dash }} · {{ m.match_time|dash }}</span><span>{{ m.stadium|dash }}</span></div><div><span class="badge {{ m.status|status_class }}">{{ m.status|status_label }}</span> <span class="badge {{ c.class }}">{{ c.score }}%</span></div></a>{% else %}<p class="empty">Aucun match ne correspond aux filtres. Essayez de retirer un filtre ou de réinitialiser.</p>{% endfor %}</div>
+  <div class="table-tools"><input class="table-filter" data-table="matches-table" placeholder="Recherche rapide dans les résultats filtrés..."></div>
+  <div class="table-wrap"><table id="matches-table"><thead><tr><th>Date</th><th>Heure</th><th>Compétition</th><th>Journée/tour</th><th>Domicile</th><th>Score</th><th>Extérieur</th><th>Statut</th><th>Qualité</th><th></th></tr></thead><tbody>{% for m in matches %}{% set c = completeness(m.id) %}<tr><td>{{ m.match_date|dash }}</td><td>{{ m.match_time|dash }}</td><td><span class="badge outline">{{ m.competition|dash }}</span></td><td>{{ m.round_label|dash }}</td><td><strong>{{ m.home_team|dash }}</strong></td><td><span class="badge dark">{{ m|score }}</span></td><td><strong>{{ m.away_team|dash }}</strong></td><td><span class="badge {{ m.status|status_class }}">{{ m.status|status_label }}</span></td><td><span class="badge {{ c.class }}">{{ c.score }}%</span></td><td><a class="btn small secondary" href="/matches/{{ m.id }}">Détails</a></td></tr>{% else %}<tr><td colspan="10" class="empty">Aucun match validé pour ce filtre.</td></tr>{% endfor %}</tbody></table></div>
+</section>
+{% endblock %}

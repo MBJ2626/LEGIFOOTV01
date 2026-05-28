@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Centre discipline · LEGIFOOT{% endblock %}
+{% block h1 %}Centre discipline{% endblock %}
+{% block content %}
+{% set admin = is_admin(request) %}
+{% set active_notifications = notifications | rejectattr('status','equalto','treated') | rejectattr('status','equalto','ignored') | list %}
+{% set critical_active = active_notifications | selectattr('severity','equalto','critical') | list %}
+{% set watch_active = active_notifications | rejectattr('severity','equalto','critical') | list %}
+{% set review_notifications = notifications | selectattr('status','equalto','review') | list %}
+{% set treated_notifications = notifications | selectattr('status','equalto','treated') | list %}
+{% set ignored_notifications = notifications | selectattr('status','equalto','ignored') | list %}
+
+<section class="breadcrumbs"><a href="/">Accueil</a><span>Centre discipline</span></section>
+
+<section class="card page-intro discipline-command discipline-ops-hero">
+  <div>
+    <span class="pill red">Workflow conformité</span>
+    <h2>Traiter les alertes disciplinaires vite, sans perdre la traçabilité.</h2>
+    <p class="muted">Cochez plusieurs alertes, appliquez un statut commun et gardez les actions unitaires pour les cas sensibles.</p>
+  </div>
+  <div class="hero-actions">
+    <a class="btn secondary" href="/discipline">Analyse discipline</a>
+    {% if admin %}<a class="btn secondary" href="/export/risk-players.csv">Export joueurs à risque</a>{% endif %}
+  </div>
+</section>
+
+<section class="workflow-steps card discipline-workflow-steps">
+  <div class="step active"><strong>{{ stats.new_alerts or 0 }}</strong><span>Nouvelles</span></div>
+  <div class="step"><strong>{{ stats.review_alerts or 0 }}</strong><span>À vérifier</span></div>
+  <div class="step success"><strong>{{ treated_notifications|length }}</strong><span>Traitées</span></div>
+  <div class="step muted"><strong>{{ ignored_notifications|length }}</strong><span>Ignorées</span></div>
+</section>
+
+<section class="grid five cards discipline-kpi-row">
+  <article class="card stat red"><span>Critiques</span><strong>{{ stats.notifications_critical or 0 }}</strong></article>
+  <article class="card stat yellow"><span>À surveiller</span><strong>{{ stats.yellow_watch_alerts or 0 }}</strong></article>
+  <article class="card stat red"><span>Rouges</span><strong>{{ stats.red_card_alerts or 0 }}</strong></article>
+  <article class="card stat green"><span>Traitées</span><strong>{{ treated_notifications|length }}</strong></article>
+  <article class="card stat"><span>Ignorées</span><strong>{{ ignored_notifications|length }}</strong></article>
+</section>
+
+{% if admin %}
+<section class="card discipline-bulk-panel">
+  <div class="section-head">
+    <div>
+      <h2>Traitement groupé</h2>
+      <p class="muted">Sélectionnez les alertes dans les colonnes, puis appliquez une décision commune.</p>
+    </div>
+    <span class="badge blue"><span data-selected-count>0</span> sélectionnée(s)</span>
+  </div>
+  <form id="notification-bulk-form" method="post" action="/notifications/bulk" class="bulk-actions-form">
+    <label>Action groupée
+      <select name="status">
+        <option value="review">Passer à À vérifier</option>
+        <option value="treated">Marquer comme traitées</option>
+        <option value="ignored">Ignorer</option>
+        <option value="new">Remettre en nouvelle</option>
+      </select>
+    </label>
+    <label>Commentaire commun
+      <input name="comment" placeholder="Ex. Vérifié avec la commission discipline">
+    </label>
+    <div class="bulk-button-row">
+      <button class="btn primary" type="submit">Appliquer aux alertes sélectionnées</button>
+      <button class="btn secondary" type="button" data-select-visible-alerts>Tout sélectionner</button>
+      <button class="btn secondary" type="button" data-clear-alert-selection>Désélectionner</button>
+    </div>
+  </form>
+</section>
+{% endif %}
+
+<section class="card filter-drawer-card">
+  <div class="section-head"><div><h2>Filtres de conformité</h2><p class="muted">Compétition, saison, club et règle de calcul.</p></div><span class="muted">{{ notifications|length }} résultat(s)</span></div>
+  <button class="btn secondary filter-drawer-toggle" type="button" data-filter-toggle>Afficher les filtres</button>
+  <form method="get" action="/notifications" class="advanced-filters filter-drawer-content">
+    <label>Compétition<select name="competition"><option value="">Toutes</option>{% for c in filter_options.competitions %}<option value="{{ c.value }}" {{ 'selected' if selected_competition == c.value else '' }}>{{ c.label }}</option>{% endfor %}</select></label>
+    <label>Saison<select name="season"><option value="">Toutes</option>{% for s in filter_options.seasons %}<option value="{{ s }}" {{ 'selected' if selected_season == s else '' }}>{{ s }}</option>{% endfor %}</select></label>
+    <label>Club<select name="club"><option value="">Tous</option>{% for club in filter_options.clubs %}<option value="{{ club }}" {{ 'selected' if selected_club == club else '' }}>{{ club }}</option>{% endfor %}</select></label>
+    <label>Période <input type="number" name="period" min="1" max="50" value="{{ period }}"></label>
+    <label>Seuil jaunes <input type="number" name="threshold" min="1" max="10" value="{{ threshold }}"></label>
+    <label>Pré-alertes<select name="include_watch"><option value="1" {{ 'selected' if include_watch else '' }}>Afficher</option><option value="0" {{ 'selected' if not include_watch else '' }}>Masquer</option></select></label>
+    <button class="btn primary" type="submit">Appliquer</button><a class="btn secondary" href="/notifications">Réinitialiser</a>
+  </form>
+</section>
+
+<section class="discipline-board four-col optimized-alert-board">
+  <article class="card discipline-column">
+    <div class="section-head"><div><h2>Priorité critique</h2><p class="muted">À traiter en premier.</p></div><span class="badge red">{{ critical_active|length }}</span></div>
+    {% if admin %}<button class="btn secondary small column-select" type="button" data-select-alert-column="critical">Sélectionner la colonne</button>{% endif %}
+    {% for n in critical_active %}{% include "partials/notification_card.html" %}{% else %}<p class="empty">Aucune alerte critique active.</p>{% endfor %}
+  </article>
+  <article class="card discipline-column">
+    <div class="section-head"><div><h2>À surveiller</h2><p class="muted">Pré-alertes avant suspension.</p></div><span class="badge yellow">{{ watch_active|length }}</span></div>
+    {% if admin %}<button class="btn secondary small column-select" type="button" data-select-alert-column="warning">Sélectionner la colonne</button>{% endif %}
+    {% for n in watch_active %}{% include "partials/notification_card.html" %}{% else %}<p class="empty">Aucune pré-alerte active.</p>{% endfor %}
+  </article>
+  <article class="card discipline-column">
+    <div class="section-head"><div><h2>Traitées</h2><p class="muted">Historique récent.</p></div><span class="badge green">{{ treated_notifications|length }}</span></div>
+    {% for n in treated_notifications[:10] %}{% include "partials/notification_card.html" %}{% else %}<p class="empty">Aucune notification traitée.</p>{% endfor %}
+  </article>
+  <article class="card discipline-column">
+    <div class="section-head"><div><h2>Ignorées</h2><p class="muted">Cas non retenus.</p></div><span class="badge">{{ ignored_notifications|length }}</span></div>
+    {% for n in ignored_notifications[:10] %}{% include "partials/notification_card.html" %}{% else %}<p class="empty">Aucune notification ignorée.</p>{% endfor %}
+  </article>
+</section>
+{% endblock %}

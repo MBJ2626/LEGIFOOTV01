@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Clubs · LEGIFOOT{% endblock %}
+{% block h1 %}Clubs{% endblock %}
+{% block content %}
+<section class="grid cards four overview-strip"><article class="card stat mini"><span>Clubs</span><strong>{{ clubs|length }}</strong></article><article class="card stat mini green"><span>Buts</span><strong>{{ clubs|sum(attribute='goals') or 0 }}</strong></article><article class="card stat mini yellow"><span>Jaunes</span><strong>{{ clubs|sum(attribute='yellow_cards') or 0 }}</strong></article><article class="card stat mini red"><span>Rouges</span><strong>{{ clubs|sum(attribute='red_cards') or 0 }}</strong></article></section>
+<section class="card"><div class="section-head"><h2>Référentiel clubs</h2><span class="badge visitor">Consultation</span></div><div class="card-list club-grid">{% for c in clubs %}<a class="entity-card" href="/clubs/{{ c.id }}"><strong>{{ c.name }}</strong><span>{{ c.matches or 0 }} match(s)</span><div><span class="badge green">{{ c.goals or 0 }} buts</span><span class="badge yellow">{{ c.yellow_cards or 0 }} CJ</span><span class="badge red">{{ c.red_cards or 0 }} CR</span></div><button type="button" class="favorite-btn" data-fav-type="club" data-fav-id="{{ c.id }}">☆ Suivre</button></a>{% else %}<p class="empty">Aucun club enregistré.</p>{% endfor %}</div></section>
+{% endblock %}

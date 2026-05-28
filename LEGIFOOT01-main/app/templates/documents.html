@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Documents · LEGIFOOT{% endblock %}
+{% block h1 %}Documents importés{% endblock %}
+{% block content %}
+{% set admin = is_admin(request) %}
+<section class="card">
+  <div class="section-head"><h2>Feuilles uploadées</h2><a class="btn secondary small" href="/upload">Nouveau upload</a></div>
+  <div class="table-tools"><input class="table-filter" data-table="documents-table" placeholder="Filtrer les documents..."></div>
+  <div class="table-wrap">
+    <table id="documents-table">
+      <thead><tr><th>ID</th><th>Fichier</th><th>Type</th><th>Statut</th><th>Confiance</th><th>Créé le</th><th>Action</th></tr></thead>
+      <tbody>
+      {% for d in documents %}
+      <tr>
+        <td>#{{ d.id }}</td>
+        <td><strong>{{ d.original_filename }}</strong><br><small>{{ d.sha256[:14] if d.sha256 else '' }}</small></td>
+        <td><span class="badge">{{ d.file_type }}</span></td>
+        <td><span class="badge {{ 'green' if d.status == 'finalized' else 'amber' }}">{{ d.status }}</span></td>
+        <td>{{ d.confidence|pct }}</td>
+        <td>{{ d.created_at }}</td>
+        <td>
+          {% if d.match_id %}
+            <a class="btn small secondary" href="/matches/{{ d.match_id }}">Voir match</a>
+          {% else %}
+            <a class="btn small primary" href="/review/{{ d.id }}">Revoir</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" class="empty">Aucun document uploadé.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

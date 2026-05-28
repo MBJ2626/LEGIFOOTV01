@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f315e">
+  <title>{% block title %}LEGIFOOT{% endblock %}</title>
+  <link rel="icon" type="image/png" href="/static/img/favicon.png">
+  <link rel="shortcut icon" href="/static/img/favicon.ico">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <link rel="stylesheet" href="/static/css/admin-discipline.css">
+</head>
+<body class="page-{{ page or 'dashboard' }}">
+  {% set admin = is_admin(request) %}
+  <div id="app-loader" class="app-loader" aria-hidden="true">
+    <div class="loader-panel">
+      <span class="loader-logo-shell"><img src="/static/img/legifoot-logo-transparent.png" alt="LEGIFOOT"></span>
+      <strong>LEGIFOOT</strong>
+      <span>Chargement de la plateforme…</span>
+      <div class="loader-dots"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+  <div class="mobile-overlay" data-nav-close></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar-close" type="button" data-nav-close aria-label="Fermer le menu">×</button>
+
+      <div class="sidebar-header">
+        <a class="brand" href="/" aria-label="Tableau de bord LEGIFOOT">
+          <span class="logo-shell"><img class="brand-logo" src="/static/img/legifoot-logo-transparent.png" alt="Logo LEGIFOOT"></span>
+        </a>
+        <div class="brand-copy block">
+          <strong>LEGIFOOT</strong>
+          <span>Analyse, discipline et données du football tunisien</span>
+        </div>
+      </div>
+
+      <nav class="nav-groups">
+        <div class="nav-group">
+          <div class="nav-group-title">Pilotage</div>
+          <a class="{{ 'active' if page == 'dashboard' else '' }}" href="/"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6v-9h-6v9Zm0-11h6V4h-6v5Z"/></svg></span>Tableau de bord</a>
+          <a class="{{ 'active' if page == 'search' else '' }}" href="/search"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="m21 20-5.6-5.6a7 7 0 1 0-1.4 1.4L20 21l1-1ZM5 10a5 5 0 1 1 10 0A5 5 0 0 1 5 10Z"/></svg></span>Recherche</a>
+          <a class="{{ 'active' if page == 'notifications' else '' }}" href="/notifications"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 22a2.6 2.6 0 0 0 2.6-2.6H9.4A2.6 2.6 0 0 0 12 22Zm7-6V11a7 7 0 0 0-5-6.7V3a2 2 0 1 0-4 0v1.3A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2Z"/></svg></span>Centre discipline</a>
+          <a class="{{ 'active' if page == 'discipline' else '' }}" href="/discipline"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 18h16v2H4v-2Zm1-4h4v3H5v-3Zm5-6h4v9h-4V8Zm5 3h4v6h-4v-6ZM4 4h16v2H4V4Z"/></svg></span>Analyse discipline</a>
+          <a class="{{ 'active' if page == 'favorites' else '' }}" href="/mes-suivis"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="m12 17.3 6.2 3.7-1.6-7 5.4-4.7-7.1-.6L12 3 9.1 9.7 2 10.3 7.4 15l-1.6 7L12 17.3Z"/></svg></span>Mes suivis</a>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">Compétitions</div>
+          <a class="{{ 'active' if page == 'competitions' else '' }}" href="/competitions"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 3.8 9.7 9 10 5.2-.3 9-5 9-10V6l-9-4Zm0 4 5 2.2V12c0 3.1-2.1 6-5 6.8C9.1 18 7 15.1 7 12V8.2L12 6Z"/></svg></span>Compétitions</a>
+          <a class="{{ 'active' if page == 'matches' else '' }}" href="/matches"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm3.5 5.2 1.3 4-3.4 2.5-3.4-2.5 1.3-4h4.2ZM7 8.8l-1.1 3.4 2.7 2-1 3.1A8 8 0 0 1 7 8.8Zm10 8.5-1-3.1 2.7-2L17.6 9A8 8 0 0 1 17 17.3Z"/></svg></span>Matchs</a>
+          <a class="{{ 'active' if page == 'clubs' else '' }}" href="/clubs"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 21V7l9-4 9 4v14h-6v-6H9v6H3Zm8-8h2V9h-2v4Z"/></svg></span>Clubs</a>
+          <a class="{{ 'active' if page == 'players' else '' }}" href="/players"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-8 9a8 8 0 0 1 16 0H4Z"/></svg></span>Joueurs</a>
+          <a class="{{ 'active' if page == 'officials' else '' }}" href="/officials"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 4.4 3.1 8.5 8 10 4.9-1.5 8-5.6 8-10V6l-8-4Zm-1 14-4-4 1.4-1.4 2.6 2.6 5.6-5.6L18 9l-7 7Z"/></svg></span>Arbitres</a>
+          <a class="{{ 'active' if page == 'events' else '' }}" href="/events"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 10-13h-7l0-7Z"/></svg></span>Événements</a>
+        </div>
+
+        {% if admin %}
+        <div class="nav-group admin-nav-group">
+          <div class="nav-group-title">Administration</div>
+          <a class="{{ 'active' if page == 'admin' else '' }}" href="/admin"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm9 0h7v7h-7v-7Z"/></svg></span>Centre admin</a>
+          <a class="{{ 'active' if page == 'upload' else '' }}" href="/upload"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 3 7 8h3v7h4V8h3l-5-5ZM5 18h14v3H5v-3Z"/></svg></span>Upload</a>
+          <a class="{{ 'active' if page == 'manual' else '' }}" href="/manual"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 4h11v4H4V4Zm0 6h16v10H4V10Zm3 3v2h10v-2H7Zm0 4h7v-2H7v2Z"/></svg></span>Saisie manuelle</a>
+          <a class="{{ 'active' if page == 'documents' else '' }}" href="/documents"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 12h8v2H8v-2Zm0 4h8v2H8v-2Z"/></svg></span>Documents</a>
+        </div>
+        {% endif %}
+
+        <div class="nav-group">
+          <div class="nav-group-title">Support</div>
+          <a class="{{ 'active' if page == 'help' else '' }}" href="/help"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-7 17.1V22l3-1.6A10 10 0 1 0 12 2Zm0 15h-1v-1c0-1.5.8-2.1 1.7-2.7.8-.5 1.3-.9 1.3-1.8A2 2 0 0 0 10 11H8a4 4 0 1 1 6.1 3.4c-.8.5-1.1.8-1.1 1.6v1h-1Zm-1-4h2V7h-2v6Z"/></svg></span>Aide</a>
+          <a class="{{ 'active' if page == 'about' else '' }}" href="/about"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6Zm0-8h2V7h-2v2Zm1 13a10 10 0 1 1 0-20 10 10 0 0 1 0 20Z"/></svg></span>À propos</a>
+        </div>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="foot-title">{{ 'Mode administrateur' if admin else 'Mode visiteur' }}</div>
+        <small>{% if admin %}Gérer les imports, corrections et alertes de conformité.{% else %}Consulter les données publiques sans modifier la base.{% endif %}</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" type="button" data-nav-open aria-label="Ouvrir le menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="topbar-brand text-only">
+            <div>
+              <p class="eyebrow">Football tunisien · analyse, conformité, discipline</p>
+              <h1>{% block h1 %}LEGIFOOT{% endblock %}</h1>
+            </div>
+          </div>
+        </div>
+        <form class="global-search" action="/search" method="get">
+          <input name="q" placeholder="Rechercher joueur, club, match, arbitre…" value="{{ q if q is defined else '' }}">
+        </form>
+        <div class="top-actions">
+          <button class="btn theme-toggle" type="button" data-theme-toggle aria-label="Basculer le mode sombre">
+            <span class="theme-toggle-icon">◐</span><span>Thème</span>
+          </button>
+          <span class="mode-badge {{ 'admin' if admin else 'visitor' }}">{{ 'Admin connecté' if admin else 'Mode visiteur' }}</span>
+          {% if admin %}
+          <a class="btn secondary" href="/admin">Centre admin</a>
+          <a class="btn primary" href="/upload">Uploader</a>
+          <a class="btn ghost" href="/logout">Déconnexion</a>
+          {% else %}
+          <a class="btn secondary" href="/notifications">Discipline</a>
+          <a class="btn primary" href="/login">Connexion admin</a>
+          {% endif %}
+        </div>
+      </header>
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Revue document #{{ document.id }} · LEGIFOOT{% endblock %}
+{% block h1 %}Revue avant insertion{% endblock %}
+{% block content %}
+<section class="grid review-grid">
+  <article class="card">
+    <div class="section-head"><h2>{{ document.original_filename }}</h2><span class="badge amber">brouillon</span></div>
+    <dl class="meta-list">
+      <div><dt>Type</dt><dd>{{ document.file_type }}</dd></div>
+      <div><dt>Confiance</dt><dd>{{ document.confidence|pct }}</dd></div>
+      <div><dt>Hash</dt><dd>{{ document.sha256[:24] if document.sha256 else '—' }}</dd></div>
+      <div><dt>Créé</dt><dd>{{ document.created_at }}</dd></div>
+    </dl>
+    {% if payload._meta and payload._meta.warnings %}
+    <div class="notice warning">
+      <strong>Points à vérifier</strong>
+      <ul>
+      {% for w in payload._meta.warnings %}<li>{{ w }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <h3>Prévisualisation</h3>
+    {% if payload.matches %}
+      {% set ns = namespace(players=0, events=0, officials=0) %}
+      {% for item in payload.matches %}
+        {% set ns.events = ns.events + (item.events|length) %}
+        {% set ns.officials = ns.officials + (item.officials|length) %}
+        {% for team in item.teams %}
+          {% set ns.players = ns.players + (team.players|length) %}
+        {% endfor %}
+      {% endfor %}
+      <div class="preview-box">
+        <div><span>Mode</span><strong>PDF multi-match</strong></div>
+        <div><span>Matchs détectés</span><strong>{{ payload.matches|length }}</strong></div>
+        <div><span>Joueurs</span><strong>{{ ns.players }}</strong></div>
+        <div><span>Événements</span><strong>{{ ns.events }}</strong></div>
+        <div><span>Officiels</span><strong>{{ ns.officials }}</strong></div>
+        <div><span>Confiance</span><strong>{{ payload._meta.confidence|pct }}</strong></div>
+      </div>
+      <div class="table-wrap compact" style="margin-top:14px">
+        <table>
+          <thead><tr><th>#</th><th>Match</th><th>Date</th><th>Score</th></tr></thead>
+          <tbody>
+          {% for item in payload.matches %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td><strong>{{ item.match.home_team|dash }}</strong> vs <strong>{{ item.match.away_team|dash }}</strong></td>
+              <td>{{ item.match.date|dash }} · {{ item.match.time|dash }}</td>
+              <td><span class="badge dark">{{ item.match.score_home|dash }} - {{ item.match.score_away|dash }}</span></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="preview-box">
+        <div><span>Match</span><strong>{{ payload.match.home_team|dash }} vs {{ payload.match.away_team|dash }}</strong></div>
+        <div><span>Date</span><strong>{{ payload.match.date|dash }} · {{ payload.match.time|dash }}</strong></div>
+        <div><span>Score</span><strong>{{ payload.match.score_home|dash }} - {{ payload.match.score_away|dash }}</strong></div>
+        <div><span>Joueurs</span><strong>{{ (payload.teams[0].players|length if payload.teams|length > 0 else 0) + (payload.teams[1].players|length if payload.teams|length > 1 else 0) }}</strong></div>
+        <div><span>Événements</span><strong>{{ payload.events|length }}</strong></div>
+        <div><span>Officiels</span><strong>{{ payload.officials|length }}</strong></div>
+      </div>
+    {% endif %}
+    <details class="raw-text"><summary>Voir le texte extrait</summary><pre>{{ document.raw_text }}</pre></details>
+  </article>
+
+  <article class="card editor-card">
+    <div class="section-head"><h2>JSON structuré modifiable</h2><span class="muted">corrige puis valide</span></div>
+    <form method="post" id="review-form">
+      <textarea name="payload_text" spellcheck="false">{{ payload_text }}</textarea>
+      <div class="form-actions">
+        <button class="btn secondary" formaction="/review/{{ document.id }}/save" type="submit">Sauvegarder brouillon</button>
+        <button class="btn primary" formaction="/review/{{ document.id }}/finalize" type="submit">Insérer dans la base</button>
+      </div>
+    </form>
+  </article>
+</section>
+{% endblock %}

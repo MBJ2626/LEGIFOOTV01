@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Mes suivis · LEGIFOOT{% endblock %}
+{% block h1 %}Mes suivis{% endblock %}
+{% block content %}
+<section class="breadcrumbs"><a href="/">Accueil</a><span>Mes suivis</span></section>
+<section class="card page-intro"><div><span class="pill dark">Favoris locaux</span><h2>Suivre rapidement les clubs, joueurs, arbitres et compétitions importantes.</h2><p class="muted">Les favoris sont stockés dans le navigateur du visiteur. Ils ne modifient pas la base de données.</p></div><a class="btn secondary" href="/clubs">Explorer les clubs</a></section>
+<section class="card"><div class="section-head"><h2>Favoris enregistrés</h2><button class="btn secondary small" data-clear-favorites type="button">Vider</button></div><div id="favorites-list" class="mobile-card-list"><p class="empty">Aucun favori enregistré sur ce navigateur.</p></div></section>
+{% endblock %}

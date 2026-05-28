@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Joueurs · LEGIFOOT{% endblock %}
+{% block h1 %}Base joueurs{% endblock %}
+{% block content %}
+{% set admin = is_admin(request) %}
+<section class="grid cards four overview-strip">
+  <article class="card stat mini"><span>Joueurs filtrés</span><strong>{{ players|length }}</strong></article>
+  <article class="card stat mini"><span>Compétition</span><strong>{{ selected_competition or 'Toutes' }}</strong></article>
+  <article class="card stat mini"><span>Saison</span><strong>{{ selected_season or 'Toutes' }}</strong></article>
+  <article class="card stat mini"><span>Club</span><strong>{{ selected_club or 'Tous' }}</strong></article>
+</section>
+<section class="card">
+  <div class="section-head"><h2><span class="heading-icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-8 9a8 8 0 0 1 16 0H4Z"/></svg></span>Tous les joueurs</h2>{% if admin %}<a class="btn secondary small" href="/export/players.csv">Export CSV</a>{% endif %}</div>
+  <form method="get" class="advanced-filters compact-filter-panel">
+  <label>Compétition
+    <select name="competition">
+      <option value="">Toutes les compétitions</option>
+      {% for c in filter_options.competitions %}<option value="{{ c.value }}" {{ 'selected' if selected_competition == c.value else '' }}>{{ c.label }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Saison
+    <select name="season">
+      <option value="">Toutes les saisons</option>
+      {% for s in filter_options.seasons %}<option value="{{ s }}" {{ 'selected' if selected_season == s else '' }}>{{ s }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Club
+    <select name="club">
+      <option value="">Tous les clubs</option>
+      {% for club in filter_options.clubs %}<option value="{{ club }}" {{ 'selected' if selected_club == club else '' }}>{{ club }}</option>{% endfor %}
+    </select>
+  </label>
+  
+  <button class="btn primary" type="submit"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v5l-4 2v-7L3 5Z"/></svg></span>Filtrer</button>
+  <a class="btn secondary" href="/players">Réinitialiser</a>
+</form>
+  <div class="table-tools"><input class="table-filter" data-table="players-table" placeholder="Recherche rapide joueur, licence, club..."></div>
+  <div class="table-wrap"><table id="players-table"><thead><tr><th>Joueur</th><th>Licence</th><th>Clubs</th><th>Naissance</th><th>Poste</th><th>Nationalité</th><th>Matchs</th><th>Titularisations</th><th>Buts</th><th>CJ</th><th>CR</th></tr></thead><tbody>
+  {% for p in players %}<tr><td><a href="/players/{{ p.id }}"><strong>{{ p.full_name }}</strong></a><button type="button" class="favorite-btn mini" data-fav-type="player" data-fav-id="{{ p.id }}">☆</button></td><td>{{ p.license_number|dash }}</td><td>{{ p.clubs|dash }}</td><td>{{ p.birth_date|dash }}</td><td>{{ p.position|dash }}</td><td>{{ p.nationality|dash }}</td><td>{{ p.matches_played or 0 }}</td><td>{{ p.starts or 0 }}</td><td><span class="badge green">{{ p.goals or 0 }}</span></td><td><span class="badge yellow">{{ p.yellow_cards or 0 }}</span></td><td><span class="badge red">{{ p.red_cards or 0 }}</span></td></tr>{% else %}<tr><td colspan="11" class="empty">Aucun joueur pour ces filtres.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+{% endblock %}

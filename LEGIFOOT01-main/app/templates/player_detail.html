@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% set p = detail.player %}
+{% block title %}{{ p.full_name }} · LEGIFOOT{% endblock %}
+{% block h1 %}{{ p.full_name }}{% endblock %}
+{% block content %}
+<section class="breadcrumbs"><a href="/">Accueil</a><a href="/joueurs">Joueurs</a><span>{{ p.full_name }}</span></section>
+{% set yellows = detail.events|selectattr('card_color','equalto','yellow')|list %}
+{% set reds = detail.events|selectattr('card_color','equalto','red')|list %}
+<section class="match-hero card"><div><span class="pill">Fiche joueur</span><h2>{{ p.full_name }}</h2><p class="muted">{{ p.position|dash }} · Licence {{ p.license_number|dash }} · {{ p.nationality|dash }}</p></div><button type="button" class="btn secondary favorite-btn" data-fav-type="player" data-fav-id="{{ p.id }}">☆ Suivre ce joueur</button></section>
+<section class="grid cards four overview-strip"><article class="card stat mini"><span>Matchs</span><strong>{{ detail.matches|length }}</strong></article><article class="card stat mini green"><span>Buts</span><strong>{{ detail.events|selectattr('event_type','equalto','goal')|list|length }}</strong></article><article class="card stat mini yellow"><span>Jaunes</span><strong>{{ yellows|length }}</strong><small>{{ 'À surveiller' if yellows|length >= 2 else 'OK' }}</small></article><article class="card stat mini red"><span>Rouges</span><strong>{{ reds|length }}</strong></article></section>
+<section class="grid two"><article class="card"><div class="section-head"><h2>Historique matchs</h2></div><ul class="result-list">{% for m in detail.matches %}<li><a href="/matches/{{ m.match_id }}"><strong>{{ m.home_team }} <span class="score-title">{{ m.score_home }} - {{ m.score_away }}</span> {{ m.away_team }}</strong><small>{{ m.match_date|dash }} · {{ m.club|dash }} · {{ 'Titulaire' if m.starter else 'Remplaçant' }}</small></a></li>{% else %}<li class="empty">Aucun match.</li>{% endfor %}</ul></article><article class="card"><div class="section-head"><h2>Événements joueur</h2></div><div class="timeline">{% for e in detail.events %}<div class="timeline-item {{ e.event_type }} {{ e.card_color or '' }}"><span class="minute">{{ e|minute_label }}</span><div><strong>{{ e|event_label }}</strong><p>{{ e.club|dash }} · <a href="/matches/{{ e.match_id }}">match</a></p></div></div>{% else %}<p class="empty">Aucun événement.</p>{% endfor %}</div></article></section>
+{% endblock %}

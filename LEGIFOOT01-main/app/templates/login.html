@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Connexion admin · LEGIFOOT{% endblock %}
+{% block h1 %}Connexion administrateur{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <article class="card auth-card">
+    <span class="pill">Accès sécurisé</span>
+    <h2>Version complète LEGIFOOT</h2>
+    <p class="muted">Connectez-vous pour uploader des feuilles de match, saisir des données, modifier les extractions et accéder aux exports administrateur.</p>
+    {% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+    <form method="post" action="/login" class="stack-form">
+      <input type="hidden" name="next" value="{{ next }}">
+      <label>Mot de passe administrateur
+        <input type="password" name="password" required autofocus placeholder="Mot de passe">
+      </label>
+      <button class="btn primary" type="submit">Se connecter</button>
+    </form>
+    <p class="muted small-text">La version visiteur reste accessible sans connexion pour visualiser les matchs, joueurs, événements, compétitions et alertes.</p>
+  </article>
+</section>
+{% endblock %}
