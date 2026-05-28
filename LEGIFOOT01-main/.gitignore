@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Virtual envs
+.venv/
+venv/
+
+# Local runtime data
+app/uploads/
+app/data/*.sqlite3
+app/data/exports/*.csv
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Playwright
+playwright-report/
+
+# Logs
+log.txt
+Log.txt
+*.log
