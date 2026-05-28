@@ -36,6 +36,16 @@ En production (`LEGIFOOT_ENV=production`) :
 
 ## Tests
 
+
+### Notes sécurité production
+
+En production (`LEGIFOOT_ENV=production`) :
+- `LEGIFOOT_SECRET_KEY` est obligatoire (pas la valeur par défaut).
+- `LEGIFOOT_ADMIN_PASSWORD` est obligatoire (pas la valeur par défaut).
+- Les cookies de session passent en `Secure` + `SameSite=Strict`.
+
+## Tests
+
 ```bash
 python -m pytest
 python -m pytest tests/test_app_flows.py
@@ -53,6 +63,20 @@ python -m playwright install chromium
 Le déploiement Render est épinglé sur Python `3.12.13` via `.python-version` et `PYTHON_VERSION` dans `render.yaml` afin d’éviter les changements de runtime par défaut.
 
 Le blueprint Render à la racine du dépôt définit `rootDir: LEGIFOOT01-main` pour que Render exécute les commandes depuis le dossier applicatif où se trouvent `requirements.txt` et `app/main.py`.
+
+## Déploiement (résumé)
+
+1. Définir toutes les variables d’environnement ci-dessus.
+2. Activer HTTPS côté reverse proxy.
+3. Monter un volume persistant pour SQLite + uploads + exports.
+4. Exclure les données runtime des commits (`.gitignore` inclus).
+
+## Admin / sécurité
+
+- Routes admin protégées via session signée.
+- Uploads validés par extension + limite de taille.
+- Noms de fichiers uploadés normalisés.
+- Exports CSV nettoyés pour limiter l’injection de formules.
 
 ## Déploiement (résumé)
 
