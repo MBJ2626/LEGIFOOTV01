@@ -20,6 +20,9 @@ from fastapi.templating import Jinja2Templates
 from . import database as db
 from .extractor import extract_document, sha256_file
 from .parser import parse_match_sheet
+from .routes.auth import router as auth_router
+from .routes.public_pages import router as public_pages_router
+from .routes.api_export import router as api_export_router
 
 BASE_DIR = Path(__file__).resolve().parent
 UPLOAD_DIR = Path(os.getenv("LEGIFOOT_UPLOAD_DIR", BASE_DIR / "uploads"))
@@ -29,8 +32,11 @@ EXPORT_DIR.mkdir(parents=True, exist_ok=True)
 
 SESSION_COOKIE = "legifoot_session"
 SESSION_MAX_AGE = 60 * 60 * 24 * 14
+ENVIRONMENT = os.getenv("LEGIFOOT_ENV", "development").lower()
 SESSION_SECRET_KEY = os.getenv("LEGIFOOT_SECRET_KEY", "legifoot-dev-secret-change-me")
-SESSION_HTTPS_ONLY = os.getenv("LEGIFOOT_HTTPS_ONLY", "0") == "1"
+SESSION_HTTPS_ONLY = os.getenv("LEGIFOOT_HTTPS_ONLY", "0") == "1" or ENVIRONMENT == "production"
+MAX_UPLOAD_SIZE_MB = int(os.getenv("LEGIFOOT_MAX_UPLOAD_MB", "20"))
+MAX_UPLOAD_BYTES = MAX_UPLOAD_SIZE_MB * 1024 * 1024
 
 
 def _b64encode(data: bytes) -> str:
@@ -77,11 +83,11 @@ async def signed_cookie_session(request: Request, call_next: Any) -> Response:
             _dump_session(request.scope["session"]),
             max_age=SESSION_MAX_AGE,
             httponly=True,
-            samesite="lax",
+            samesite="strict" if ENVIRONMENT == "production" else "lax",
             secure=SESSION_HTTPS_ONLY,
         )
     else:
-        response.delete_cookie(SESSION_COOKIE, samesite="lax", secure=SESSION_HTTPS_ONLY)
+        response.delete_cookie(SESSION_COOKIE, samesite="strict" if ENVIRONMENT == "production" else "lax", secure=SESSION_HTTPS_ONLY)
     return response
 
 
@@ -90,6 +96,12 @@ templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 ALLOWED_SUFFIXES = {".pdf", ".docx", ".xlsx", ".xlsm", ".xls", ".csv"}
 ADMIN_PASSWORD = os.getenv("LEGIFOOT_ADMIN_PASSWORD", "admin123")
+
+if ENVIRONMENT == "production":
+    if SESSION_SECRET_KEY == "legifoot-dev-secret-change-me":
+        raise RuntimeError("LEGIFOOT_SECRET_KEY must be set in production")
+    if ADMIN_PASSWORD == "admin123":
+        raise RuntimeError("LEGIFOOT_ADMIN_PASSWORD must be set in production")
 
 COMPETITIONS = [
     {"value": "Ligue 1 Professionnelle", "label": "Ligue 1", "short": "L1", "description": "Championnat élite tunisien"},
@@ -195,6 +207,13 @@ def event_label(row: dict[str, Any]) -> str:
     if event_type == "substitution":
         return "Remplacement"
     return event_type.capitalize()
+
+
+def csv_safe(value: Any) -> str:
+    text = str(value or "")
+    if text[:1] in {"=", "+", "-", "@"}:
+        return "'" + text
+    return text
 
 
 def pct(value: Any) -> str:
@@ -505,32 +524,6 @@ def on_startup() -> None:
 
 
 
-@app.get("/login", response_class=HTMLResponse)
-def login_page(request: Request, next: str = "/") -> HTMLResponse:
-    if is_admin_user(request):
-        return RedirectResponse(url=next or "/", status_code=303)
-    return templates.TemplateResponse(request, "login.html", {"page": "login", "next": next or "/"})
-
-
-@app.post("/login")
-def login_submit(request: Request, password: str = Form(...), next: str = Form("/")) -> Response:
-    if password == ADMIN_PASSWORD:
-        request.session["is_admin"] = True
-        return RedirectResponse(url=next or "/", status_code=303)
-    return templates.TemplateResponse(
-        request,
-        "login.html",
-        {"page": "login", "next": next or "/", "error": "Mot de passe administrateur incorrect."},
-        status_code=401,
-    )
-
-
-@app.get("/logout")
-def logout(request: Request) -> RedirectResponse:
-    request.session.clear()
-    return RedirectResponse(url="/", status_code=303)
-
-
 @app.get("/", response_class=HTMLResponse)
 def dashboard_home(request: Request, competition: str = "", season: str = "", club: str = "", date_from: str = "", date_to: str = "", round_label: str = "", q: str = "") -> HTMLResponse:
     return templates.TemplateResponse(request, "dashboard.html", dashboard_context(competition, season, club, date_from, date_to, round_label, q))
@@ -636,8 +629,17 @@ async def upload_files(
         while target.exists():
             target = UPLOAD_DIR / f"{Path(base_name).stem}_{counter}{suffix}"
             counter += 1
+        written = 0
         with target.open("wb") as f:
-            shutil.copyfileobj(uploaded.file, f)
+            while True:
+                chunk = uploaded.file.read(1024 * 1024)
+                if not chunk:
+                    break
+                written += len(chunk)
+                if written > MAX_UPLOAD_BYTES:
+                    target.unlink(missing_ok=True)
+                    raise HTTPException(status_code=413, detail=f"Fichier trop volumineux (max {MAX_UPLOAD_SIZE_MB} Mo)")
+                f.write(chunk)
         content_hash = sha256_file(target)
         extracted = extract_document(target)
         payload = parse_match_sheet(
@@ -955,16 +957,6 @@ def export_risk_players(request: Request) -> Response:
     return Response(content=output.getvalue(), media_type="text/csv", headers={"Content-Disposition": "attachment; filename=risk-players.csv"})
 
 
-@app.get("/about", response_class=HTMLResponse)
-def about_page(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse(request, "about.html", {"page": "about"})
-
-
-@app.get("/help", response_class=HTMLResponse)
-def help_page(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse(request, "help.html", {"page": "help"})
-
-
 @app.get("/discipline", response_class=HTMLResponse)
 def discipline_analysis_page(request: Request, competition: str = "", season: str = "", club: str = "") -> HTMLResponse:
     all_matches = db.list_matches()
@@ -977,10 +969,6 @@ def discipline_analysis_page(request: Request, competition: str = "", season: st
         "selected_club": club.strip(),
     })
 
-@app.get("/mes-suivis", response_class=HTMLResponse)
-def favorites_page(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse(request, "favorites.html", {"page": "favorites"})
-
 @app.post("/matches/{match_id}/status")
 def update_match_status_route(request: Request, match_id: int, status: str = Form("to_review")) -> RedirectResponse:
     require_admin(request)
@@ -988,27 +976,8 @@ def update_match_status_route(request: Request, match_id: int, status: str = For
     return RedirectResponse(url=f"/matches/{match_id}?toast=Statut mis à jour", status_code=303)
 
 
-@app.get("/api/matches")
-def api_matches() -> list[dict[str, Any]]:
-    return db.list_matches()
 
 
-@app.get("/api/players")
-def api_players() -> list[dict[str, Any]]:
-    return db.list_players()
-
-
-@app.get("/api/events")
-def api_events() -> list[dict[str, Any]]:
-    return db.list_events()
-
-
-@app.get("/export/{table_name}.csv")
-def export_csv(request: Request, table_name: str) -> FileResponse:
-    require_admin(request)
-    output = EXPORT_DIR / f"{table_name}.csv"
-    try:
-        db.export_table(table_name, output)
-    except ValueError:
-        raise HTTPException(status_code=404, detail="Table non exportable")
-    return FileResponse(output, filename=output.name, media_type="text/csv")
+app.include_router(auth_router)
+app.include_router(public_pages_router)
+app.include_router(api_export_router)
