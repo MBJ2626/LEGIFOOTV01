@@ -1,0 +1,1024 @@
+2026-05-28T12:16:11.537110933Z [err]          self.prefix + path,
+2026-05-28T12:16:11.537117859Z [err]      ...<27 lines>...
+2026-05-28T12:16:11.537123747Z [err]          ),
+2026-05-28T12:16:11.537129829Z [err]      )
+2026-05-28T12:16:11.539034847Z [err]    File "/app/.venv/lib/python3.13/site-packages/fastapi/utils.py", line 75, in create_model_field
+2026-05-28T12:16:11.539040870Z [err]      raise fastapi.exceptions.FastAPIError(
+2026-05-28T12:16:11.539044963Z [err]          _invalid_args_message.format(type_=type_)
+2026-05-28T12:16:11.539049828Z [err]      ) from None
+2026-05-28T12:16:11.539054667Z [err]  fastapi.exceptions.FastAPIError: Invalid args for response field! Hint: check that starlette.responses.RedirectResponse | starlette.responses.HTMLResponse is a valid Pydantic field type. If you are using a return type annotation that is not a valid Pydantic field (e.g. Union[Response, dict, None]) you can disable generating the response model from the type annotation with the path operation decorator parameter response_model=None. Read more: https://fastapi.tiangolo.com/tutorial/response-model/
+2026-05-28T12:31:16.218450305Z [inf]  Starting Container
+2026-05-28T12:31:17.090180647Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:17.090187085Z [err]               ~~~~^^
+2026-05-28T12:31:17.090199935Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:17.090207212Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:17.090213924Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:17.090223847Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:17.090234142Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:17.090238421Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:17.090243291Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:17.090246185Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:17.090252905Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:17.090254762Z [err]      sys.exit(main())
+2026-05-28T12:31:17.090260551Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:17.090268798Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:17.090275518Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:17.090282154Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:17.090288842Z [err]      run(
+2026-05-28T12:31:17.090294849Z [err]      ~~~^
+2026-05-28T12:31:17.090301925Z [err]          app,
+2026-05-28T12:31:17.090308340Z [err]          ^^^^
+2026-05-28T12:31:17.090315028Z [err]      ...<48 lines>...
+2026-05-28T12:31:17.090322070Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:17.090328972Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:17.090336292Z [err]      )
+2026-05-28T12:31:17.090342738Z [err]      ^
+2026-05-28T12:31:17.090888680Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:17.090895438Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:17.090900570Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:17.090905289Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:17.090910871Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:17.090915948Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:17.090921349Z [err]      config.load_app()
+2026-05-28T12:31:17.090925398Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:17.090930810Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:17.090934271Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:17.090937307Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:17.090943678Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:17.090944065Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:17.090951025Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:17.090954877Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:17.090959021Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:17.090962802Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:17.090973021Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:17.091033793Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:17.091654769Z [err]      ^^^
+2026-05-28T12:31:17.091660823Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:18.284101588Z [err]          ^^^^
+2026-05-28T12:31:18.284105846Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:18.284106542Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:18.284112824Z [err]      ...<48 lines>...
+2026-05-28T12:31:18.284117309Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:18.284118472Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:18.284122385Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:18.284129242Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:18.284129631Z [err]      sys.exit(main())
+2026-05-28T12:31:18.284136133Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:18.284137322Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:18.284142006Z [err]               ~~~~^^
+2026-05-28T12:31:18.284147431Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:18.284148087Z [err]      )
+2026-05-28T12:31:18.284150788Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:18.284156027Z [err]      ^
+2026-05-28T12:31:18.284157122Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:18.284161934Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:18.284166481Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:18.284167648Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:18.284172293Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:18.284176884Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:18.284181720Z [err]      run(
+2026-05-28T12:31:18.284186489Z [err]      ~~~^
+2026-05-28T12:31:18.284190706Z [err]          app,
+2026-05-28T12:31:18.285239035Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:18.285245953Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:18.285259706Z [err]      config.load_app()
+2026-05-28T12:31:18.285266088Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:18.285272849Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:18.285278671Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:18.285284321Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:18.285289484Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:18.285295024Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:18.285300286Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:18.285305354Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:18.285310954Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:18.285318046Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:18.285323418Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:18.285328622Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:18.285333677Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:18.285338966Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:18.285343795Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:18.285347824Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:18.286132948Z [err]      ^^^
+2026-05-28T12:31:18.286140513Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:20.110850859Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:20.110859639Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:20.110865374Z [err]      sys.exit(main())
+2026-05-28T12:31:20.110870768Z [err]               ~~~~^^
+2026-05-28T12:31:20.110874656Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:20.110879373Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:20.110883766Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:20.110887832Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:20.110893302Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:20.110899335Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:20.110905032Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:20.110910972Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:20.110924587Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:20.110932138Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:20.110938333Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:20.110944269Z [err]      run(
+2026-05-28T12:31:20.110950475Z [err]      ~~~^
+2026-05-28T12:31:20.110956285Z [err]          app,
+2026-05-28T12:31:20.110962418Z [err]          ^^^^
+2026-05-28T12:31:20.110976474Z [err]      ...<48 lines>...
+2026-05-28T12:31:20.110982621Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:20.110987268Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:20.110991569Z [err]      )
+2026-05-28T12:31:20.110997347Z [err]      ^
+2026-05-28T12:31:20.111002189Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:20.112029321Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:20.112036588Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:20.112037249Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:20.112039211Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:20.112043256Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:20.112048108Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:20.112051284Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:20.112052378Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:20.112058562Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:20.112060272Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:20.112066634Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:20.112072288Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:20.112079009Z [err]      config.load_app()
+2026-05-28T12:31:20.112080926Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:20.112086341Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:20.112088790Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:20.112092741Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:20.112096944Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:20.112100964Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:20.112444459Z [err]      ^^^
+2026-05-28T12:31:20.112449911Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:21.186216954Z [inf]  Stopping Container
+2026-05-28T12:31:22.140543503Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:22.140556240Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:22.140561534Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:22.140563615Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:22.140570995Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:22.140575228Z [err]      ~~~^
+2026-05-28T12:31:22.140578050Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:22.140582090Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:22.140587414Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:22.140591457Z [err]          app,
+2026-05-28T12:31:22.140595725Z [err]      )
+2026-05-28T12:31:22.140597842Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:22.140601604Z [err]          ^^^^
+2026-05-28T12:31:22.140610704Z [err]      ^
+2026-05-28T12:31:22.140611382Z [err]      ...<48 lines>...
+2026-05-28T12:31:22.140620016Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:22.140621351Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:22.140627787Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:22.140633082Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:22.140642260Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:22.140648602Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:22.140652373Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:22.140658793Z [err]      sys.exit(main())
+2026-05-28T12:31:22.140661835Z [err]      run(
+2026-05-28T12:31:22.140666744Z [err]               ~~~~^^
+2026-05-28T12:31:22.141094948Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:22.141101680Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:22.141108928Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:22.141115602Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:22.141121170Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:22.141127272Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:22.141133146Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:22.141141217Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:22.141147112Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:22.141175675Z [err]      config.load_app()
+2026-05-28T12:31:22.141179458Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:22.141183322Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:22.141187421Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:22.141191386Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:22.141195421Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:22.141199940Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:22.141203863Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:22.141207875Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:22.141211757Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:22.141735876Z [err]      ^^^
+2026-05-28T12:31:22.141741746Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:23.825312725Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:23.825313872Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:23.825323478Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:23.825324529Z [err]      )
+2026-05-28T12:31:23.825327056Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:23.825332737Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:23.825335316Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:23.825335744Z [err]      ^
+2026-05-28T12:31:23.825342299Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:23.825343073Z [err]      sys.exit(main())
+2026-05-28T12:31:23.825344871Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:23.825350679Z [err]      run(
+2026-05-28T12:31:23.825354130Z [err]               ~~~~^^
+2026-05-28T12:31:23.825361056Z [err]      ~~~^
+2026-05-28T12:31:23.825361144Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:23.825369121Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:23.825373699Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:23.825379254Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:23.825380310Z [err]          app,
+2026-05-28T12:31:23.825386345Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:23.825388076Z [err]          ^^^^
+2026-05-28T12:31:23.825392761Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:23.825398047Z [err]      ...<48 lines>...
+2026-05-28T12:31:23.825399567Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:23.825404728Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:23.826318727Z [err]      config.load_app()
+2026-05-28T12:31:23.826335198Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:23.826342085Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:23.826346553Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:23.826350763Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:23.826356570Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:23.826360855Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:23.826367242Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:23.826371858Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:23.826376922Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:23.826380874Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:23.826384912Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:23.826390805Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:23.826395429Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:23.826399505Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:23.826403904Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:23.826408271Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:23.826414251Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:23.826418543Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:23.827141110Z [err]      ^^^
+2026-05-28T12:31:23.827145554Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:25.624847899Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:25.624848814Z [err]      ...<48 lines>...
+2026-05-28T12:31:25.624854712Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:25.624858109Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:25.624863662Z [err]      sys.exit(main())
+2026-05-28T12:31:25.624865875Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:25.624870844Z [err]               ~~~~^^
+2026-05-28T12:31:25.624875055Z [err]      )
+2026-05-28T12:31:25.624877132Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:25.624882982Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:25.624885012Z [err]      ^
+2026-05-28T12:31:25.624891750Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:25.624893409Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:25.624897915Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:25.624901939Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:25.624905549Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:25.624909225Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:25.624912462Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:25.624915972Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:25.624919269Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:25.624922771Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:25.624926230Z [err]      run(
+2026-05-28T12:31:25.624930019Z [err]      ~~~^
+2026-05-28T12:31:25.624934649Z [err]          app,
+2026-05-28T12:31:25.624938001Z [err]          ^^^^
+2026-05-28T12:31:25.625686757Z [err]      config.load_app()
+2026-05-28T12:31:25.625698520Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:25.625706897Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:25.625713808Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:25.625723978Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:25.625730823Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:25.625737463Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:25.625800615Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:25.625806646Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:25.625812956Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:25.625819485Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:25.625826724Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:25.625833016Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:25.625839141Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:25.625845379Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:25.625851567Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:25.625857772Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:25.625863942Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:25.625897128Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:25.626617193Z [err]      ^^^
+2026-05-28T12:31:25.626624275Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:27.485963305Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:27.485963522Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:27.485965985Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:27.485972141Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:27.485974548Z [err]      run(
+2026-05-28T12:31:27.485979020Z [err]      sys.exit(main())
+2026-05-28T12:31:27.485985176Z [err]      ~~~^
+2026-05-28T12:31:27.485985832Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:27.485988599Z [err]               ~~~~^^
+2026-05-28T12:31:27.485994559Z [err]          app,
+2026-05-28T12:31:27.485996162Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:27.486003925Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:27.486004049Z [err]          ^^^^
+2026-05-28T12:31:27.486007552Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:27.486009187Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:27.486013272Z [err]      ...<48 lines>...
+2026-05-28T12:31:27.486018229Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:27.486019320Z [err]      )
+2026-05-28T12:31:27.486020433Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:27.486024615Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:27.486025289Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:27.486030007Z [err]      ^
+2026-05-28T12:31:27.486034357Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:27.486038861Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:27.486043320Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:27.487004508Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:27.487006779Z [err]      config.load_app()
+2026-05-28T12:31:27.487011300Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:27.487016699Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:27.487022546Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:27.487023408Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:27.487032132Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:27.487032781Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:27.487040887Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:27.487043886Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:27.487050286Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:27.487052962Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:27.487059652Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:27.487060882Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:27.487067499Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:27.487073993Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:27.487080492Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:27.487086955Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:27.487093087Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:27.487538272Z [err]      ^^^
+2026-05-28T12:31:27.487546165Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:29.365810816Z [err]      run(
+2026-05-28T12:31:29.365818272Z [err]      ~~~^
+2026-05-28T12:31:29.365823018Z [err]          app,
+2026-05-28T12:31:29.365827274Z [err]          ^^^^
+2026-05-28T12:31:29.365831693Z [err]      ...<48 lines>...
+2026-05-28T12:31:29.365836917Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:29.365843193Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:29.365847932Z [err]      )
+2026-05-28T12:31:29.365852400Z [err]      ^
+2026-05-28T12:31:29.365857537Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:29.365890713Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:29.365895258Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:29.365899121Z [err]      sys.exit(main())
+2026-05-28T12:31:29.365904019Z [err]               ~~~~^^
+2026-05-28T12:31:29.365907895Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:29.365911953Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:29.365915798Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:29.365919658Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:29.365923821Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:29.365928226Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:29.365932666Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:29.365936491Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:29.365945979Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:29.365950022Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:29.365953958Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:29.366791755Z [err]      config.load_app()
+2026-05-28T12:31:29.366799051Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:29.366802957Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:29.366807023Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:29.366811190Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:29.366816126Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:29.366820249Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:29.366824814Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:29.366828640Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:29.366832926Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:29.366837315Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:29.366841034Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:29.366844620Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:29.366848480Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:29.366852055Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:29.366856390Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:29.366860559Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:29.366864516Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:29.366868337Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:29.367584387Z [err]      ^^^
+2026-05-28T12:31:29.367592280Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:31.283547971Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:31.283554658Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:31.283559880Z [err]      sys.exit(main())
+2026-05-28T12:31:31.283562142Z [err]      ~~~^
+2026-05-28T12:31:31.283565656Z [err]               ~~~~^^
+2026-05-28T12:31:31.283571569Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:31.283573938Z [err]          app,
+2026-05-28T12:31:31.283578274Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:31.283583119Z [err]          ^^^^
+2026-05-28T12:31:31.283585145Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:31.283590979Z [err]      ...<48 lines>...
+2026-05-28T12:31:31.283591391Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:31.283598077Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:31.283598270Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:31.283606818Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:31.283609176Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:31.283612414Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:31.283617836Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:31.283619829Z [err]      )
+2026-05-28T12:31:31.283623170Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:31.283628589Z [err]      ^
+2026-05-28T12:31:31.283628935Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:31.283635287Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:31.283635636Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:31.283641255Z [err]      run(
+2026-05-28T12:31:31.284484360Z [err]      config.load_app()
+2026-05-28T12:31:31.284485470Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:31.284490964Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:31.284496618Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:31.284497704Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:31.284504927Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:31.284505162Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:31.284512534Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:31.284513882Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:31.284518430Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:31.284520468Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:31.284525607Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:31.284526936Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:31.284531528Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:31.284536230Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:31.284540219Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:31.284544517Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:31.284549184Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:31.284553057Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:31.285419803Z [err]      ^^^
+2026-05-28T12:31:31.285427096Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:33.190465733Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:33.190474984Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:33.190481857Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:33.190482702Z [err]      sys.exit(main())
+2026-05-28T12:31:33.190490651Z [err]               ~~~~^^
+2026-05-28T12:31:33.190492597Z [err]      run(
+2026-05-28T12:31:33.190497555Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:33.190505789Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:33.190506628Z [err]      ~~~^
+2026-05-28T12:31:33.190514751Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:33.190515315Z [err]          app,
+2026-05-28T12:31:33.190522447Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:33.190523991Z [err]          ^^^^
+2026-05-28T12:31:33.190529274Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:33.190532134Z [err]      ...<48 lines>...
+2026-05-28T12:31:33.190535986Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:33.190541120Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:33.190542443Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:33.190547606Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:33.190554799Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:33.190555035Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:33.190563532Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:33.190569287Z [err]      )
+2026-05-28T12:31:33.190571615Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:33.190577315Z [err]      ^
+2026-05-28T12:31:33.191538987Z [err]      config.load_app()
+2026-05-28T12:31:33.191556455Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:33.191563405Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:33.191571541Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:33.191571905Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:33.191577820Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:33.191580072Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:33.191586169Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:33.191587351Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:33.191588013Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:33.191595858Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:33.191596297Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:33.191597581Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:33.191603573Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:33.191606515Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:33.191611545Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:33.191615853Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:33.191620113Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:33.191624171Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:33.192384394Z [err]      ^^^
+2026-05-28T12:31:33.192389176Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T12:31:35.166132604Z [err]      return callback(*args, **kwargs)
+2026-05-28T12:31:35.166133133Z [err]      )
+2026-05-28T12:31:35.166142840Z [err]      ^
+2026-05-28T12:31:35.166143327Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T12:31:35.166150111Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T12:31:35.166153096Z [err]      run(
+2026-05-28T12:31:35.166159862Z [err]      ~~~^
+2026-05-28T12:31:35.166166490Z [err]          app,
+2026-05-28T12:31:35.166173199Z [err]          ^^^^
+2026-05-28T12:31:35.166181866Z [err]      ...<48 lines>...
+2026-05-28T12:31:35.166188078Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T12:31:35.166196337Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:35.166198028Z [err]  Traceback (most recent call last):
+2026-05-28T12:31:35.166203260Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T12:31:35.166210426Z [err]      sys.exit(main())
+2026-05-28T12:31:35.166214676Z [err]               ~~~~^^
+2026-05-28T12:31:35.166219117Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T12:31:35.166223081Z [err]      return self.main(*args, **kwargs)
+2026-05-28T12:31:35.166227298Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:35.166231318Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T12:31:35.166235988Z [err]      rv = self.invoke(ctx)
+2026-05-28T12:31:35.166240942Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T12:31:35.166244869Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T12:31:35.166249258Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:35.166253473Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T12:31:35.166950853Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T12:31:35.166954054Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T12:31:35.166958079Z [err]      config.load_app()
+2026-05-28T12:31:35.166961453Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T12:31:35.166966450Z [err]      from .routes.auth import router as auth_router
+2026-05-28T12:31:35.166967729Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T12:31:35.166971693Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T12:31:35.166979286Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T12:31:35.166980379Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T12:31:35.166982539Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T12:31:35.166991890Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T12:31:35.166993300Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T12:31:35.166996061Z [err]      return import_from_string(self.app)
+2026-05-28T12:31:35.167000627Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T12:31:35.167004409Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T12:31:35.167007778Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T12:31:35.167011993Z [err]      module = importlib.import_module(module_str)
+2026-05-28T12:31:35.167017582Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T12:31:35.167021611Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T12:31:35.167938447Z [err]      ^^^
+2026-05-28T12:31:35.167945226Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:16.760481939Z [inf]  Starting Container
+2026-05-28T15:36:18.326292085Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:18.326298019Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:18.326300524Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:18.326303600Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:18.326307431Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:18.326314851Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:18.326324944Z [err]      run(
+2026-05-28T15:36:18.326325231Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:18.326328351Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:18.326333455Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:18.326334988Z [err]      ~~~^
+2026-05-28T15:36:18.326340087Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:18.326346711Z [err]      )
+2026-05-28T15:36:18.326347449Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:18.326349278Z [err]      ...<48 lines>...
+2026-05-28T15:36:18.326351792Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:18.326355404Z [err]      ^
+2026-05-28T15:36:18.326363664Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:18.326364278Z [err]      sys.exit(main())
+2026-05-28T15:36:18.326369394Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:18.326375134Z [err]               ~~~~^^
+2026-05-28T15:36:18.326378463Z [err]          app,
+2026-05-28T15:36:18.326380105Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:18.326385687Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:18.326393857Z [err]          ^^^^
+2026-05-28T15:36:18.327083371Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:18.327095272Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:18.327099812Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:18.327108778Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:18.327108898Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:18.327118828Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:18.327118958Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:18.327125888Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:18.327130107Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:18.327137338Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:18.327141976Z [err]      config.load_app()
+2026-05-28T15:36:18.327146220Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:18.327152883Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:18.327155163Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:18.327161537Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:18.327169359Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:18.327173918Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:18.327177505Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:18.327183158Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:18.327974861Z [err]      ^^^
+2026-05-28T15:36:18.327981693Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:19.674531855Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:19.675829125Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:19.675833770Z [err]      sys.exit(main())
+2026-05-28T15:36:19.675838086Z [err]               ~~~~^^
+2026-05-28T15:36:19.675842830Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:19.675847539Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:19.675851766Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:19.675856924Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:19.675860797Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:19.675865148Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:19.675869524Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:19.675873713Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:19.675877714Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:19.675882077Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:19.675886564Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:19.675891847Z [err]      run(
+2026-05-28T15:36:19.675896030Z [err]      ~~~^
+2026-05-28T15:36:19.675900347Z [err]          app,
+2026-05-28T15:36:19.675904252Z [err]          ^^^^
+2026-05-28T15:36:19.675908537Z [err]      ...<48 lines>...
+2026-05-28T15:36:19.675912942Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:19.675916864Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:19.675921066Z [err]      )
+2026-05-28T15:36:19.675925212Z [err]      ^
+2026-05-28T15:36:19.675929171Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:19.676695900Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:19.676703534Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:19.676706403Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:19.676710314Z [err]      config.load_app()
+2026-05-28T15:36:19.676715715Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:19.676716244Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:19.676724986Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:19.676725628Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:19.676727166Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:19.676731324Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:19.676737186Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:19.676737249Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:19.676739501Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:19.676746236Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:19.676746527Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:19.676748879Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:19.676755951Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:19.676756044Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:19.676758914Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:19.677355350Z [err]      ^^^
+2026-05-28T15:36:19.677359661Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:21.055070502Z [inf]  Stopping Container
+2026-05-28T15:36:21.984864287Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:21.984876466Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:21.984876478Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:21.984883673Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:21.984884265Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:21.984887373Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:21.984898699Z [err]      )
+2026-05-28T15:36:21.984899386Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:21.984906063Z [err]      ~~~^
+2026-05-28T15:36:21.984909133Z [err]      sys.exit(main())
+2026-05-28T15:36:21.984909429Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:21.984917704Z [err]          app,
+2026-05-28T15:36:21.984920710Z [err]      ^
+2026-05-28T15:36:21.984921239Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:21.984921474Z [err]               ~~~~^^
+2026-05-28T15:36:21.984928795Z [err]          ^^^^
+2026-05-28T15:36:21.984931652Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:21.984933536Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:21.984938519Z [err]      ...<48 lines>...
+2026-05-28T15:36:21.984943328Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:21.984943758Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:21.984945767Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:21.984951155Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:21.984956924Z [err]      run(
+2026-05-28T15:36:21.985943953Z [err]      config.load_app()
+2026-05-28T15:36:21.985949735Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:21.985954859Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:21.985955257Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:21.985961079Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:21.985967091Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:21.985969379Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:21.985976007Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:21.985978051Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:21.985983170Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:21.985991072Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:21.985997350Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:21.986003851Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:21.986009455Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:21.986015453Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:21.986021637Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:21.986029954Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:21.986037497Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:21.986043331Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:21.986622306Z [err]      ^^^
+2026-05-28T15:36:21.986627239Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:24.529652095Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:24.529659049Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:24.529659255Z [err]      ^
+2026-05-28T15:36:24.529666178Z [err]      sys.exit(main())
+2026-05-28T15:36:24.529666196Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:24.529673571Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:24.529673647Z [err]               ~~~~^^
+2026-05-28T15:36:24.529675077Z [err]      run(
+2026-05-28T15:36:24.529678966Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:24.529684251Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:24.529686498Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:24.529689430Z [err]      ~~~^
+2026-05-28T15:36:24.529694671Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:24.529698446Z [err]          app,
+2026-05-28T15:36:24.529705260Z [err]          ^^^^
+2026-05-28T15:36:24.529706255Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:24.529712852Z [err]      ...<48 lines>...
+2026-05-28T15:36:24.529717119Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:24.529723115Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:24.529725288Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:24.529729862Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:24.529733306Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:24.529737304Z [err]      )
+2026-05-28T15:36:24.529741525Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:24.529748083Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:24.530766169Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:24.530774004Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:24.530779126Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:24.530784641Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:24.530790119Z [err]      config.load_app()
+2026-05-28T15:36:24.530792784Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:24.530799283Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:24.530800363Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:24.530807670Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:24.530808990Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:24.530815601Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:24.530822452Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:24.530830178Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:24.530837017Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:24.530842913Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:24.530849346Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:24.530856369Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:24.530862890Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:24.530869277Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:24.531451840Z [err]      ^^^
+2026-05-28T15:36:24.531460405Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:27.003087318Z [err]      )
+2026-05-28T15:36:27.003092425Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:27.003097680Z [err]      ^
+2026-05-28T15:36:27.003103968Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:27.003108428Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:27.003109027Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:27.003112926Z [err]      sys.exit(main())
+2026-05-28T15:36:27.003118523Z [err]               ~~~~^^
+2026-05-28T15:36:27.003124019Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:27.003125719Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:27.003130999Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:27.003135368Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:27.003138931Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:27.003145837Z [err]      run(
+2026-05-28T15:36:27.003147597Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:27.003156244Z [err]      ~~~^
+2026-05-28T15:36:27.003156352Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:27.003165633Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:27.003170280Z [err]          app,
+2026-05-28T15:36:27.003173310Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:27.003180848Z [err]          ^^^^
+2026-05-28T15:36:27.003181990Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:27.003189485Z [err]      ...<48 lines>...
+2026-05-28T15:36:27.003196837Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:27.003203958Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:27.003938377Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:27.003946225Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:27.003953724Z [err]      config.load_app()
+2026-05-28T15:36:27.003954426Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:27.003956524Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:27.003964205Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:27.003967232Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:27.003972182Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:27.003975366Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:27.003978858Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:27.003982009Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:27.003986535Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:27.003989442Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:27.003994823Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:27.003999881Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:27.004000521Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:27.004005886Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:27.004010644Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:27.004015268Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:27.004680781Z [err]      ^^^
+2026-05-28T15:36:27.004694242Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:29.350160651Z [err]      ^
+2026-05-28T15:36:29.350163000Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:29.350174025Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:29.350174222Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:29.350182398Z [err]      ~~~^
+2026-05-28T15:36:29.350182469Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:29.350187723Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:29.350192860Z [err]          app,
+2026-05-28T15:36:29.350195558Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:29.350200367Z [err]          ^^^^
+2026-05-28T15:36:29.350204392Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:29.350208485Z [err]      ...<48 lines>...
+2026-05-28T15:36:29.350210639Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:29.350215059Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:29.350217162Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:29.350220298Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:29.350225468Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:29.350230327Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:29.350230476Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:29.350235221Z [err]      )
+2026-05-28T15:36:29.350240298Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:29.350240875Z [err]      sys.exit(main())
+2026-05-28T15:36:29.350247033Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:29.350250263Z [err]               ~~~~^^
+2026-05-28T15:36:29.350254429Z [err]      run(
+2026-05-28T15:36:29.350839028Z [err]      config.load_app()
+2026-05-28T15:36:29.350843357Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:29.350849095Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:29.350853540Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:29.350857595Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:29.350862098Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:29.350866875Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:29.350871230Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:29.350875999Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:29.350880407Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:29.350886385Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:29.350890689Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:29.350894882Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:29.350900591Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:29.350905032Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:29.350909257Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:29.350913208Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:29.350917596Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:29.350922199Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:29.351002967Z [err]      ^^^
+2026-05-28T15:36:29.351007983Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:31.578951056Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:31.580619233Z [err]      )
+2026-05-28T15:36:31.580620752Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:31.580625414Z [err]      ~~~^
+2026-05-28T15:36:31.580631702Z [err]      sys.exit(main())
+2026-05-28T15:36:31.580634843Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:31.580634854Z [err]          app,
+2026-05-28T15:36:31.580636096Z [err]      ^
+2026-05-28T15:36:31.580641966Z [err]          ^^^^
+2026-05-28T15:36:31.580644714Z [err]               ~~~~^^
+2026-05-28T15:36:31.580646233Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:31.580648306Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:31.580651939Z [err]      ...<48 lines>...
+2026-05-28T15:36:31.580656151Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:31.580657253Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:31.580664310Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:31.580665826Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:31.580669073Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:31.580673807Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:31.580679833Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:31.580680064Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:31.580689341Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:31.580691503Z [err]      run(
+2026-05-28T15:36:31.580696991Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:31.580702803Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:31.581748358Z [err]      config.load_app()
+2026-05-28T15:36:31.581750428Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:31.581758794Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:31.581759008Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:31.581767722Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:31.581768698Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:31.581776881Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:31.581776998Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:31.581784842Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:31.581787825Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:31.581792058Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:31.581796424Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:31.581801020Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:31.581805645Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:31.581809657Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:31.581814144Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:31.581818733Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:31.581823226Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:31.581827533Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:31.582275251Z [err]      ^^^
+2026-05-28T15:36:31.582280253Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:34.415179723Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:34.420874820Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:34.420882250Z [err]      sys.exit(main())
+2026-05-28T15:36:34.420888714Z [err]          ^^^^
+2026-05-28T15:36:34.420888746Z [err]               ~~~~^^
+2026-05-28T15:36:34.420893703Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:34.420898514Z [err]      ...<48 lines>...
+2026-05-28T15:36:34.420902721Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:34.420908998Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:34.420910989Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:34.420915223Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:34.420919078Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:34.420924198Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:34.420929186Z [err]      )
+2026-05-28T15:36:34.420931185Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:34.420937778Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:34.420940994Z [err]      ^
+2026-05-28T15:36:34.420943586Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:34.420947808Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:34.420950032Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:34.420955365Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:34.420960030Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:34.420964747Z [err]      run(
+2026-05-28T15:36:34.420968738Z [err]      ~~~^
+2026-05-28T15:36:34.420973309Z [err]          app,
+2026-05-28T15:36:34.421963391Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:34.421969698Z [err]      config.load_app()
+2026-05-28T15:36:34.421973282Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:34.421978441Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:34.421983613Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:34.421986156Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:34.421990823Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:34.421995048Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:34.421999168Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:34.422004046Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:34.422009641Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:34.422014174Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:34.422019515Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:34.422024090Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:34.422028510Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:34.422033212Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:34.422038225Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:34.422042273Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:34.422046174Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:34.422493916Z [err]      ^^^
+2026-05-28T15:36:34.422498104Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:36.555690333Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:36.555696427Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:36.555702166Z [err]      sys.exit(main())
+2026-05-28T15:36:36.555707995Z [err]               ~~~~^^
+2026-05-28T15:36:36.555711974Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:36.555715540Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:36.555716274Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:36.555718709Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:36.555727397Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:36.555734731Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:36.555735398Z [err]          ^^^^
+2026-05-28T15:36:36.555735752Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:36.555746067Z [err]      ...<48 lines>...
+2026-05-28T15:36:36.555746385Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:36.555747424Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:36.555755844Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:36.555758561Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:36.555763561Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:36.555764704Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:36.555773259Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:36.555773330Z [err]      )
+2026-05-28T15:36:36.555781781Z [err]      ^
+2026-05-28T15:36:36.555783295Z [err]      run(
+2026-05-28T15:36:36.555790172Z [err]      ~~~^
+2026-05-28T15:36:36.555797289Z [err]          app,
+2026-05-28T15:36:36.556695355Z [err]      config.load_app()
+2026-05-28T15:36:36.556702472Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:36.556709049Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:36.556715535Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:36.556721585Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:36.556726338Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:36.556732699Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:36.556739910Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:36.556747259Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:36.556754212Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:36.556760328Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:36.556766341Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:36.556772435Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:36.556778305Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:36.556785028Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:36.556790806Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:36.556796539Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:36.556802441Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:36.556808619Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:36.557696057Z [err]      ^^^
+2026-05-28T15:36:36.557703869Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:38.762099602Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:38.762106513Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:38.762113116Z [err]      sys.exit(main())
+2026-05-28T15:36:38.762119466Z [err]               ~~~~^^
+2026-05-28T15:36:38.762125393Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:38.762131876Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:38.762139038Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:38.762145540Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:38.762151731Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:38.762158242Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:38.762164914Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:38.762170785Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:38.762177460Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:38.762183933Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:38.762190335Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:38.762196866Z [err]      run(
+2026-05-28T15:36:38.762202979Z [err]      ~~~^
+2026-05-28T15:36:38.762209430Z [err]          app,
+2026-05-28T15:36:38.762215956Z [err]          ^^^^
+2026-05-28T15:36:38.762221810Z [err]      ...<48 lines>...
+2026-05-28T15:36:38.762226840Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:38.762231725Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:38.762236227Z [err]      )
+2026-05-28T15:36:38.762241009Z [err]      ^
+2026-05-28T15:36:38.762245897Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:38.763080129Z [err]      config.load_app()
+2026-05-28T15:36:38.763092098Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:38.763100244Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:38.763107233Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:38.763113948Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:38.763121437Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:38.763128588Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:38.763135282Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:38.763142060Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:38.763149737Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:38.763156669Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:38.763163153Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:38.763170593Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:38.763177910Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:38.763184876Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:38.763191742Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:38.763198262Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:38.763205763Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:38.763212226Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:38.764059973Z [err]      ^^^
+2026-05-28T15:36:38.764066795Z [err]  IndentationError: expected an indented block after function definition on line 16
+2026-05-28T15:36:41.064478993Z [err]      )
+2026-05-28T15:36:41.064484100Z [err]          app,
+2026-05-28T15:36:41.064490669Z [err]      ^
+2026-05-28T15:36:41.064497213Z [err]          ^^^^
+2026-05-28T15:36:41.064499520Z [err]  Traceback (most recent call last):
+2026-05-28T15:36:41.064500548Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 609, in run
+2026-05-28T15:36:41.064504701Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+2026-05-28T15:36:41.064509276Z [err]      ...<48 lines>...
+2026-05-28T15:36:41.064510096Z [err]    File "/app/.venv/bin/uvicorn", line 6, in <module>
+2026-05-28T15:36:41.064516530Z [err]      return callback(*args, **kwargs)
+2026-05-28T15:36:41.064518946Z [err]      sys.exit(main())
+2026-05-28T15:36:41.064519343Z [err]          reset_contextvars=reset_contextvars,
+2026-05-28T15:36:41.064525742Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+2026-05-28T15:36:41.064527688Z [err]               ~~~~^^
+2026-05-28T15:36:41.064528004Z [err]          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:41.064533733Z [err]      run(
+2026-05-28T15:36:41.064535712Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+2026-05-28T15:36:41.064540695Z [err]      ~~~^
+2026-05-28T15:36:41.064541686Z [err]      return self.main(*args, **kwargs)
+2026-05-28T15:36:41.064547088Z [err]             ~~~~~~~~~^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:41.064554278Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+2026-05-28T15:36:41.064561207Z [err]      rv = self.invoke(ctx)
+2026-05-28T15:36:41.064567419Z [err]    File "/app/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+2026-05-28T15:36:41.064575925Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-05-28T15:36:41.064582201Z [err]             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:41.065845219Z [err]      config.load_app()
+2026-05-28T15:36:41.065852898Z [err]      ~~~~~~~~~~~~~~~^^
+2026-05-28T15:36:41.065861727Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+2026-05-28T15:36:41.065869003Z [err]      return import_from_string(self.app)
+2026-05-28T15:36:41.065876818Z [err]    File "/app/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+2026-05-28T15:36:41.065884603Z [err]      module = importlib.import_module(module_str)
+2026-05-28T15:36:41.065892273Z [err]    File "/mise/installs/python/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+2026-05-28T15:36:41.065900213Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-05-28T15:36:41.065907911Z [err]             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-05-28T15:36:41.065918003Z [err]    File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+2026-05-28T15:36:41.065925723Z [err]    File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-05-28T15:36:41.065934923Z [err]    File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-05-28T15:36:41.065942333Z [err]    File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-05-28T15:36:41.065950083Z [err]    File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+2026-05-28T15:36:41.065957825Z [err]    File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2026-05-28T15:36:41.065965763Z [err]    File "/app/app/main.py", line 23, in <module>
+2026-05-28T15:36:41.065974388Z [err]      from .routes.auth import router as auth_router
+2026-05-28T15:36:41.065981398Z [err]    File "/app/app/routes/auth.py", line 17
+2026-05-28T15:36:41.065988962Z [err]      def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
+2026-05-28T15:36:41.066821425Z [err]      ^^^
+2026-05-28T15:36:41.066829325Z [err]  IndentationError: expected an indented block after function definition on line 16
