@@ -20,6 +20,9 @@ from fastapi.templating import Jinja2Templates
 from . import database as db
 from .extractor import extract_document, sha256_file
 from .parser import parse_match_sheet
+from .routes.auth import router as auth_router
+from .routes.public_pages import router as public_pages_router
+from .routes.api_export import router as api_export_router
 
 BASE_DIR = Path(__file__).resolve().parent
 UPLOAD_DIR = Path(os.getenv("LEGIFOOT_UPLOAD_DIR", BASE_DIR / "uploads"))
@@ -521,32 +524,6 @@ def on_startup() -> None:
 
 
 
-@app.get("/login", response_class=HTMLResponse)
-def login_page(request: Request, next: str = "/") -> HTMLResponse:
-    if is_admin_user(request):
-        return RedirectResponse(url=next or "/", status_code=303)
-    return templates.TemplateResponse(request, "login.html", {"page": "login", "next": next or "/"})
-
-
-@app.post("/login")
-def login_submit(request: Request, password: str = Form(...), next: str = Form("/")) -> Response:
-    if password == ADMIN_PASSWORD:
-        request.session["is_admin"] = True
-        return RedirectResponse(url=next or "/", status_code=303)
-    return templates.TemplateResponse(
-        request,
-        "login.html",
-        {"page": "login", "next": next or "/", "error": "Mot de passe administrateur incorrect."},
-        status_code=401,
-    )
-
-
-@app.get("/logout")
-def logout(request: Request) -> RedirectResponse:
-    request.session.clear()
-    return RedirectResponse(url="/", status_code=303)
-
-
 @app.get("/", response_class=HTMLResponse)
 def dashboard_home(request: Request, competition: str = "", season: str = "", club: str = "", date_from: str = "", date_to: str = "", round_label: str = "", q: str = "") -> HTMLResponse:
     return templates.TemplateResponse(request, "dashboard.html", dashboard_context(competition, season, club, date_from, date_to, round_label, q))
@@ -980,16 +957,6 @@ def export_risk_players(request: Request) -> Response:
     return Response(content=output.getvalue(), media_type="text/csv", headers={"Content-Disposition": "attachment; filename=risk-players.csv"})
 
 
-@app.get("/about", response_class=HTMLResponse)
-def about_page(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse(request, "about.html", {"page": "about"})
-
-
-@app.get("/help", response_class=HTMLResponse)
-def help_page(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse(request, "help.html", {"page": "help"})
-
-
 @app.get("/discipline", response_class=HTMLResponse)
 def discipline_analysis_page(request: Request, competition: str = "", season: str = "", club: str = "") -> HTMLResponse:
     all_matches = db.list_matches()
@@ -1002,10 +969,6 @@ def discipline_analysis_page(request: Request, competition: str = "", season: st
         "selected_club": club.strip(),
     })
 
-@app.get("/mes-suivis", response_class=HTMLResponse)
-def favorites_page(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse(request, "favorites.html", {"page": "favorites"})
-
 @app.post("/matches/{match_id}/status")
 def update_match_status_route(request: Request, match_id: int, status: str = Form("to_review")) -> RedirectResponse:
     require_admin(request)
@@ -1013,27 +976,8 @@ def update_match_status_route(request: Request, match_id: int, status: str = For
     return RedirectResponse(url=f"/matches/{match_id}?toast=Statut mis à jour", status_code=303)
 
 
-@app.get("/api/matches")
-def api_matches() -> list[dict[str, Any]]:
-    return db.list_matches()
 
 
-@app.get("/api/players")
-def api_players() -> list[dict[str, Any]]:
-    return db.list_players()
-
-
-@app.get("/api/events")
-def api_events() -> list[dict[str, Any]]:
-    return db.list_events()
-
-
-@app.get("/export/{table_name}.csv")
-def export_csv(request: Request, table_name: str) -> FileResponse:
-    require_admin(request)
-    output = EXPORT_DIR / f"{table_name}.csv"
-    try:
-        db.export_table(table_name, output)
-    except ValueError:
-        raise HTTPException(status_code=404, detail="Table non exportable")
-    return FileResponse(output, filename=output.name, media_type="text/csv")
+app.include_router(auth_router)
+app.include_router(public_pages_router)
+app.include_router(api_export_router)
