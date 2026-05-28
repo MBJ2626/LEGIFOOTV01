@@ -21,3 +21,8 @@ app/data/exports/*.csv
 
 # Playwright
 playwright-report/
+
+# Logs
+log.txt
+Log.txt
+*.log
