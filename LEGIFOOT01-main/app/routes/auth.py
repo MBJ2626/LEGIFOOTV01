@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 router = APIRouter()
 
@@ -13,6 +14,7 @@ def login_page(request: Request, next: str = "/") -> HTMLResponse:
 
 @router.post("/login")
 def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> Response:
+def login_action(request: Request, password: str = Form(""), next: str = Form("/")) -> RedirectResponse | HTMLResponse:
     from app.main import ADMIN_PASSWORD, templates
 
     if password != ADMIN_PASSWORD:
