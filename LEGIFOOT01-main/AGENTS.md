@@ -1,75 +1,56 @@
 # LEGIFOOT Agent Instructions
 
 ## Project overview
-
-LEGIFOOT is a FastAPI + Jinja2 + SQLite web platform for Tunisian football match sheets. It supports document upload, parsing, manual match entry, discipline alerts, public consultation, and admin workflows.
+LEGIFOOT is a FastAPI + Jinja2 + SQLite platform for Tunisian football match-sheet ingestion, manual entry, discipline alerts, and public consultation.
 
 ## Stack
-
-- Python
 - FastAPI
-- Jinja2
+- Jinja2 templates
 - SQLite
-- Vanilla CSS
-- Vanilla JavaScript
-- Pytest
-- Playwright for E2E tests
+- Vanilla CSS + Vanilla JavaScript
+- Pytest + Playwright
 
-## Important rules
+## Folder structure
+- `app/main.py`: app wiring + HTTP routes
+- `app/database.py`: schema, repositories, export helpers
+- `app/templates/`: server-rendered UI
+- `app/static/css/app.css`: design system styles
+- `app/static/js/app.js`: front-end interactions
+- `tests/`: integration and E2E tests
 
-- Do not break existing routes.
-- Do not remove existing features without explanation.
-- Keep public and admin modes clearly separated.
-- Preserve French UI copy unless improving clarity.
-- Keep the app lightweight.
-- Prefer clean FastAPI/Jinja improvements before introducing frontend frameworks.
-- Do not commit generated files, caches, or local SQLite databases unless explicitly intended as sample data.
+## Coding conventions
+- Keep routes backward compatible; do not rename existing URLs without redirects/tests.
+- Prefer incremental refactors over large rewrites.
+- Keep template variables explicit and stable.
+- Use dependency-free JS and semantic HTML.
+- Avoid duplicated logic; extract helpers where safe.
 
-## Design direction
-
-LEGIFOOT should feel like a premium football analytics and compliance platform.
-
-Use:
-- deep navy
-- Tunisian red
-- soft white/gray
-- restrained green/yellow/red status colors
-- clean typography
-- strong spacing
-- clear visual hierarchy
-- professional dashboard components
-
-Avoid:
-- clutter
-- excessive gradients
-- too many decorative elements
-- inconsistent cards/buttons/badges
-- generic admin template look
-
-## Code quality
-
-- Keep files small where possible.
-- Split large modules into route, service, repository, and utility layers.
-- Use clear names.
-- Avoid duplicate logic.
-- Keep templates readable.
-- Use reusable partials/macros where useful.
-- Keep JavaScript dependency-free unless necessary.
-
-## Security
-
-- Never rely on default production secrets.
-- Admin password and session secret must come from environment variables in production.
+## Security rules
+- In production, require `LEGIFOOT_SECRET_KEY` and `LEGIFOOT_ADMIN_PASSWORD` from environment.
+- Validate upload extension and size before parsing.
 - Sanitize uploaded filenames.
-- Validate uploaded file types and sizes.
-- Protect admin-only routes.
-- Review POST forms for CSRF protection.
-- Avoid leaking sensitive errors.
+- Keep admin-only actions protected (`require_admin`).
+- Avoid exposing raw internals in user-facing errors.
 
-## Testing
+## Design system rules
+- Use a premium, calm football-data visual language.
+- Keep spacing, typography, and component hierarchy consistent.
+- Reuse button/card/badge/table patterns.
+- Ensure dark mode and reduced-motion behavior remain usable.
 
-Run before finalizing changes:
-
+## Testing commands
 ```bash
 python -m pytest
 python -m pytest tests/test_app_flows.py
+python -m pytest tests/test_e2e_playwright.py
+```
+
+## Do-not-break rules
+- Match ingestion, review/finalize flow, and manual entry must continue to work.
+- `/api/matches` and `/api/notifications` responses must stay compatible with tests.
+- Notifications severity and watchlist logic must remain stable.
+
+## Deployment notes
+- Set `LEGIFOOT_ENV=production` in production.
+- Set secure cookies with HTTPS (`LEGIFOOT_HTTPS_ONLY=1` or production env).
+- Keep local SQLite files out of commits unless intentionally added as sample data.
